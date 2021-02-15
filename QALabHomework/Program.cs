@@ -93,6 +93,25 @@ namespace QALabHomework
             {
                 Console.WriteLine(text);
             }
+
+            object cat = "Tiger";
+            string text1 = cat as string;
+            if (text == null)
+            {
+                Console.WriteLine("Something wrong");
+            }
+            else
+            {
+                Console.WriteLine(text1);
+            }
+
+            int x15 = -15;
+            Console.WriteLine(-+x15);
+
+            int x16 = +15;
+            Console.WriteLine(+-x16);
+
+
         }
     }
 }
