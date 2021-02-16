@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Linq;
+using Bogus;
+using Homework2.Factories;
+using Homework2.Models;
 
 namespace Homework2
 {
@@ -6,9 +10,17 @@ namespace Homework2
     {
         static void Main(string[] args)
         {
-            Guid g = Guid.NewGuid();
-            Console.WriteLine(g);
-            Console.WriteLine(Guid.NewGuid());
+           var factory = new UserFactory();
+           var employees = factory.GetEmployees(new Faker().Random.Int(1, 4));
+           var candidates = factory.GetCandidates(new Faker().Random.Int(1, 4));
+           candidates.First().Description();
+           employees.First().Description();
+
+           
+
+
+
+
         }
     }
 }

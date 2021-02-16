@@ -12,7 +12,7 @@ namespace Homework2.Models
 
         public void Description()
         {
-            Console.WriteLine("Description");
+            Console.WriteLine($"Hello, I am {FullName} I want to be a {JobTitle}, {JobDescription} with a salary from {JobSalary}.");
         }
     }
 }
