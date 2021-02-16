@@ -7,7 +7,7 @@ using Homework2.Models;
 
 namespace Homework2.Factories
 {
-    public class UserFactory : BaseUser
+    public class UserFactory 
     {
         public List<Candidate> GetCandidates(int userCount = 1)
         {
