@@ -10,11 +10,13 @@ namespace Homework2
     {
         static void Main(string[] args)
         {
+            const int minUserCount = 1;
+            const int maxUserCount = 4;
            var factory = new UserFactory();
-           var employees = factory.GetEmployees(new Faker().Random.Int(1, 4));
-           var candidates = factory.GetCandidates(new Faker().Random.Int(1, 4));
-           candidates.First().Description();
+           var employees = factory.GetEmployees(new Faker().Random.Int(minUserCount, maxUserCount));
+           var candidates = factory.GetCandidates(new Faker().Random.Int(minUserCount, maxUserCount));
            employees.First().Description();
+           // candidates.First().Description();
 
            
 

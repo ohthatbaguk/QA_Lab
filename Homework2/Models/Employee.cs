@@ -6,19 +6,16 @@ namespace Homework2.Models
 {
     public class Employee : BaseUser,IDescriptionable
     {
-        
-        public string CompanyName { get; set; }
-        public string CompanyCountry { get; set; }
-        public string CompanyCity { get; set; }
-        public string CompanyStreet { get; set; }
+        public Job Job { get; set; }
+     
+        public Company Company { get; set; }
         public Employee()
         {
         }
 
         public void Description()
         {
-            Console.WriteLine($"Hello, I am {FullName}, {JobTitle} in {CompanyName},{CompanyCountry}, " +
-                              $"{CompanyCity}, {CompanyStreet} and my salary {JobSalary}.");
+            Console.WriteLine($"Hello, I am {FullName}, {Job.Title} in {Company.Name}, {Company.Country}, {Company.City}, {Company.Street} and my salary {Job.Salary}");
         }
     }
 }

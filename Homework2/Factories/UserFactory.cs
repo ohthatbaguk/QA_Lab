@@ -13,27 +13,18 @@ namespace Homework2.Factories
         {
             return new Faker<Candidate>()
                 .RuleFor(u => u.UserId, f => Guid.NewGuid())
-                .RuleFor(u => u.FirstName, f => f.Name.FirstName())
-                .RuleFor(u => u.Surname, f => f.Name.LastName())
-                .RuleFor(u => u.JobDescription, f => "It is a set of quality assurance processes")
-                .RuleFor(u => u.JobTitle, f => "AQA")
-                .RuleFor(u => u.JobSalary, f => f.Random.Int(300,500)).Generate(userCount);
+                .RuleFor(u => u.FullName, f => f.Name.FullName())
+                .RuleFor(u => u.Job, f => new JobFaker().GetJob())
+                .Generate(userCount);
         }
         
         public List<Employee> GetEmployees(int userCount = 1)
         {
             return new Faker<Employee>()
                 .RuleFor(u => u.UserId, f => Guid.NewGuid())
-                .RuleFor(u => u.FirstName, f => f.Name.FirstName())
-                .RuleFor(u => u.Surname, f => f.Name.LastName())
-                .RuleFor(u => u.JobDescription, f => "It is a set of quality assurance processes")
-                .RuleFor(u => u.JobTitle, f => "QA")
-                .RuleFor(u => u.CompanyName, f => f.Company.CompanyName())
-                .RuleFor(u => u.CompanyCountry, f => f.Address.Country())
-                .RuleFor(u => u.CompanyCity, f => f.Address.City())
-                .RuleFor(u => u.CompanyCity, f => f.Address.StreetName())
-                .RuleFor(u => u.JobSalary, f => f.Random.Int(500, 1000)).Generate(userCount);
-
+                .RuleFor(u => u.FullName, f => f.Name.FullName())
+                .RuleFor(u => u.Company, f => new CompanyFaker().GetCompany())
+                .Generate(userCount);
         }
     }
 }
