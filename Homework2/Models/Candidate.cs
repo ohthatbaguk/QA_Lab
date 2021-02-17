@@ -6,15 +6,16 @@ namespace Homework2.Models
 {
     public class Candidate : BaseUser, IDescriptionable
     {
-        
         public Job Job { get; set; }
+
         public Candidate()
         {
         }
 
         public void Description()
         {
-            Console.WriteLine($"Hello, I am {FullName} I want to be a {Job.Title}, {Job.Description} with a salary from {Job.Salary}.");
+            Console.WriteLine(
+                $"Hello, I am {FullName}. I want to be a {Job.Title}, {Job.Description} with a salary from {Job.Salary}.");
         }
     }
 }

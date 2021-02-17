@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Bogus;
+﻿using Bogus;
 using Homework2.Models;
 
 namespace Homework2.Factories
@@ -9,6 +7,7 @@ namespace Homework2.Factories
     {
         private const int minSalary = 500;
         private const int maxSalary = 800;
+
         public Faker<Job> GetJob()
         {
             return new Faker<Job>()
@@ -16,6 +15,5 @@ namespace Homework2.Factories
                 .RuleFor(u => u.Description, f => f.Name.JobDescriptor())
                 .RuleFor(u => u.Salary, f => f.Random.Int(minSalary, maxSalary));
         }
-        
     }
 }

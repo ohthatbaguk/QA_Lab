@@ -1,15 +1,10 @@
-﻿using Bogus;
-using Homework2.Factories;
-
-namespace Homework2.Models
+﻿namespace Homework2.Models
 {
-    public class Job : JobFaker
-    
+    public class Job
+
     {
         public string Title { get; set; }
         public string Description { get; set; }
         public int Salary { get; set; }
     }
-    
-    
 }
