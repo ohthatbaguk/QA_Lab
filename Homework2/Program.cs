@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Bogus;
 using Homework2.Factories;
+using Homework2.Report;
 
 namespace Homework2
 {
@@ -15,6 +17,16 @@ namespace Homework2
             var candidates = factory.GetCandidates(new Faker().Random.Int(minUserCount, maxUserCount));
             employees.First().Description();
             candidates.First().Description();
+
+            Console.WriteLine();
+
+            var empRep = new EmployeeReportGenerator();
+            empRep.Report();
+
+            Console.WriteLine();
+
+            var canRep = new СandidateReportGenerator();
+            canRep.Report();
         }
     }
 }
