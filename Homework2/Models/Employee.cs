@@ -9,10 +9,6 @@ namespace Homework2.Models
         public Job Job { get; set; }
         public Company Company { get; set; }
 
-        public Employee()
-        {
-        }
-
         public void Description()
         {
             Console.WriteLine(

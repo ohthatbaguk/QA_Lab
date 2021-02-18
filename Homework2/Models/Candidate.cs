@@ -8,10 +8,6 @@ namespace Homework2.Models
     {
         public Job Job { get; set; }
 
-        public Candidate()
-        {
-        }
-
         public void Description()
         {
             Console.WriteLine(
