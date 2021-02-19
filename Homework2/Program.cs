@@ -19,13 +19,13 @@ namespace Homework2
             var candidates = factory.GetCandidates(new Faker().Random.Int(minUserCount, maxUserCount));
 
 
-            var empRep = new EmployeeReportGenerator();
-            empRep.Report(new List<BaseUser>(employees));
+            var employeeReportGenerator = new EmployeeReportGenerator();
+            employeeReportGenerator.Report(new List<BaseUser>(employees));
 
             Console.WriteLine();
 
-            var canRep = new СandidateReportGenerator();
-            canRep.Report(new List<BaseUser>(candidates));
+            var candidateReportGenerator = new СandidateReportGenerator();
+            candidateReportGenerator.Report(new List<BaseUser>(candidates));
 
             Console.WriteLine();
 

@@ -12,7 +12,7 @@ namespace Homework2.Factories
             return new Faker<Candidate>()
                 .RuleFor(u => u.UserId, f => Guid.NewGuid())
                 .RuleFor(u => u.FullName, f => f.Name.FullName())
-                .RuleFor(u => u.Job, f => new JobFaker().GetJob())
+                .RuleFor(u => u.Job, f => new JobFaker().GetJob().Generate())
                 .Generate(userCount);
         }
 
@@ -22,7 +22,7 @@ namespace Homework2.Factories
                 .RuleFor(u => u.UserId, f => Guid.NewGuid())
                 .RuleFor(u => u.FullName, f => f.Name.FullName())
                 .RuleFor(u => u.Company, f => new CompanyFaker().GetCompany())
-                .RuleFor(u => u.Job, f => new JobFaker().GetJob())
+                .RuleFor(u => u.Job, f => new JobFaker().GetJob().Generate())
                 .Generate(userCount);
         }
     }
