@@ -8,29 +8,29 @@ namespace Homework_3.Collections
     {
         public Stack<int> CreateStack<T>()
         {
-            Stack<int> stack = new Stack<int>();
-            Random random = new Random();
-            int MaxValue = 10;
-            int MinValue = 1;
-            for (int i = 0; i < 10; i++)
+            var stack = new Stack<int>();
+            var random = new Random();
+            const int maxValue = 10;
+            const int minValue = 1;
+            for (var i = 0; i < 10; i++)
             {
-                stack.Push(random.Next(MinValue,MaxValue)); 
+                stack.Push(random.Next(minValue,maxValue)); 
             }
             return stack;
         }
 
         public ArrayList CreateArrayWithDigits<T>(Stack<T> stack)
         {
-            ArrayList digitsList = new ArrayList();
+            var digitsList = new ArrayList();
             digitsList.AddRange(stack);
             return digitsList;
         }
 
         public Stack<int> FindEqualElementsInStacks(Stack<int> firstStack, Stack<int> secondStack)
         {
-            ArrayList firstList = CreateArrayWithDigits(firstStack);
-            ArrayList secondList = CreateArrayWithDigits(secondStack);
-            Stack<int> resultStack = new Stack<int>();
+            var firstList = CreateArrayWithDigits(firstStack);
+            var secondList = CreateArrayWithDigits(secondStack);
+            var resultStack = new Stack<int>();
             foreach (var digit in firstList)
             {
                 if (secondList.Contains(digit))

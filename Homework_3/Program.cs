@@ -22,12 +22,7 @@ namespace Homework_3
             Console.WriteLine("The index of min element: " + newQueue.FindMinElementInQueue(queue));
             Console.WriteLine("Result of calculating: " + newQueue.CalculateAmount(queue));
             
-            var list = newQueue.CreateQueue();
-            while (list.Count != 1)
-            {
-                list.Enqueue(list.Dequeue());
-                list.Dequeue();
-            }
+            newQueue.CircleOutNumber(queue);
         }
     }
 }

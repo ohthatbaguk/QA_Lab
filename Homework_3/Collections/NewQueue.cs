@@ -31,7 +31,7 @@ namespace Homework_3.Collections
         {
             var imax = 0;
             var list = CreateArrayFromQueue(queue);
-            for (int i = 0; i < list.Count; i++)
+            for (var i = 0; i < list.Count; i++)
             {
                 if ((int) list[i] > (int) list[imax])
                     imax = i;
@@ -43,8 +43,8 @@ namespace Homework_3.Collections
         public int FindMinElementInQueue(Queue<int> queue)
         {
             var imin = 0;
-            ArrayList list = CreateArrayFromQueue(queue);
-            for (int i = 0; i < list.Count; i++)
+            var list = CreateArrayFromQueue(queue);
+            for (var i = 0; i < list.Count; i++)
             {
                 if ((int) list[i] < (int) list[imin])
                     imin = i;
@@ -66,12 +66,30 @@ namespace Homework_3.Collections
                 imax = temp;
             }
 
-            for (int i = imin; i <= imax; i++)
+            for (var i = imin; i <= imax; i++)
             {
                 result += (int) list[i];
             }
 
             return result;
         }
+
+        // var list = newQueue.CreateQueue();
+        //     while (list.Count != 1)
+        // {
+        //     list.Enqueue(list.Dequeue());
+        //     list.Dequeue();
+        // }
+        // public void CircleOutNumber(Queue<int> queue)
+        // {
+        //     var list = CreateArrayFromQueue(queue);
+        //     for (var i = 0; i < list.Count; i++)
+        //     {
+        //         if ((int) list[i] % 2 == 0)
+        //         {
+        //             list.RemoveAt(i);
+        //         }
+        //     }
+        // }
     }
 }
