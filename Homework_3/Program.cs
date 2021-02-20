@@ -13,6 +13,14 @@ namespace Homework_3
             Stack<int> secondStack = newStack.CreateStack<int>();
             Stack<int> resultStack = newStack.FindEqualElementsInStacks(firstStack, secondStack);
             newStack.PrintElementsInStack(resultStack);
+            
+            Console.WriteLine();
+            
+            NewQueue newQueue = new NewQueue();
+            var queue = newQueue.CreateQueue();
+            Console.WriteLine("The index of max element: " + newQueue.FindMaxElementInQueue(queue));
+            Console.WriteLine("The index of min element: " + newQueue.FindMinElementInQueue(queue));
+            Console.WriteLine("Result of calculating: " + newQueue.CalculateAmount(queue));
         }
     }
 }
