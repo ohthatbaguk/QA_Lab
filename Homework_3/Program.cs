@@ -8,7 +8,7 @@ namespace Homework_3
     {
         static void Main(string[] args)
         {
-            NewStack newStack = new NewStack();
+            var newStack = new NewStack();
             var firstStack = newStack.CreateStack<int>();
             var secondStack = newStack.CreateStack<int>();
             var resultStack = newStack.FindEqualElementsInStacks(firstStack, secondStack);
@@ -16,7 +16,7 @@ namespace Homework_3
 
             Console.WriteLine();
 
-            NewQueue newQueue = new NewQueue();
+            var newQueue = new NewQueue();
             var queue = newQueue.CreateQueue();
             Console.WriteLine("The index of max element: " + newQueue.FindMaxElementInQueue(queue));
             Console.WriteLine("The index of min element: " + newQueue.FindMinElementInQueue(queue));
