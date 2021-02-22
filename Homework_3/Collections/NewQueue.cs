@@ -10,9 +10,9 @@ namespace Homework_3.Collections
         {
             var queue = new Queue<int>();
             Random random = new Random();
-            int MaxValue = 10;
-            int MinValue = 1;
-            for (int i = 0; i < 10; i++)
+            var MaxValue = 100;
+            var MinValue = 1;
+            for (var i = 0; i < 20; i++)
             {
                 queue.Enqueue(random.Next(MinValue, MaxValue));
             }
@@ -72,24 +72,6 @@ namespace Homework_3.Collections
             }
 
             return result;
-        }
-
-        // var list = newQueue.CreateQueue();
-        //     while (list.Count != 1)
-        // {
-        //     list.Enqueue(list.Dequeue());
-        //     list.Dequeue();
-        // }
-        // public void CircleOutNumber(Queue<int> queue)
-        // {
-        //     var list = CreateArrayFromQueue(queue);
-        //     for (var i = 0; i < list.Count; i++)
-        //     {
-        //         if ((int) list[i] % 2 == 0)
-        //         {
-        //             list.RemoveAt(i);
-        //         }
-        //     }
-        // }
+        }   
     }
 }

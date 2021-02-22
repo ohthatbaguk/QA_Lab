@@ -10,9 +10,9 @@ namespace Homework_3.Collections
         {
             var stack = new Stack<int>();
             var random = new Random();
-            const int maxValue = 10;
+            const int maxValue = 90;
             const int minValue = 1;
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < 50; i++)
             {
                 stack.Push(random.Next(minValue,maxValue)); 
             }
