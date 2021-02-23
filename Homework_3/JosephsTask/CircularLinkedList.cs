@@ -1,28 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Homework_3.Collections;
 
 namespace Homework_3.JosephsTask
 {
     public class CircularLinkedList<T> : IEnumerable<T>
     {
-        public Node<T> Head;
-        public Node<T> Tail;
-        int _count;
+        private Node<T> _head;
+        private Node<T> _tail;
+        private int _count;
+
+        public int Count => _count;
 
         public void Add(T data)
         {
             Node<T> node = new Node<T>(data);
-            if (Head == null)
+            if (_head == null)
             {
-                Head = node;
-                Tail = node;
-                Tail.Next = Head;
+                _head = node;
+                _tail = node;
+                _tail.Next = _head;
             }
             else
             {
-                node.Next = Head;
-                Tail.Next = node;
-                Tail = node;
+                node.Next = _head;
+                _tail.Next = node;
+                _tail = node;
             }
 
             _count++;
@@ -30,10 +33,13 @@ namespace Homework_3.JosephsTask
 
         public bool Remove(T data)
         {
-            Node<T> current = Head;
+            Node<T> current = _head;
             Node<T> previous = null;
 
-            if (IsEmpty) return false;
+            if (IsEmpty)
+            {
+                return false;
+            }
 
             do
             {
@@ -43,19 +49,19 @@ namespace Homework_3.JosephsTask
                     {
                         previous.Next = current.Next;
 
-                        if (current == Tail)
-                            Tail = previous;
+                        if (current == _tail)
+                            _tail = previous;
                     }
                     else
                     {
                         if (_count == 1)
                         {
-                            Head = Tail = null;
+                            _head = _tail = null;
                         }
                         else
                         {
-                            Head = current.Next;
-                            Tail.Next = current.Next;
+                            _head = current.Next;
+                            _tail.Next = current.Next;
                         }
                     }
 
@@ -65,21 +71,16 @@ namespace Homework_3.JosephsTask
 
                 previous = current;
                 current = current.Next;
-            } while (current != Head);
+            } while (current != _head);
 
             return false;
         }
 
-        public int Count
-        {
-            get { return _count; }
-        }
-
-        public bool IsEmpty => _count == 0;
+        private bool IsEmpty => _count == 0;
 
         public IEnumerator<T> GetEnumerator()
         {
-            Node<T> current = Head;
+            Node<T> current = _head;
             do
             {
                 if (current != null)
@@ -87,7 +88,7 @@ namespace Homework_3.JosephsTask
                     yield return current.Data;
                     current = current.Next;
                 }
-            } while (current != Head);
+            } while (current != _head);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

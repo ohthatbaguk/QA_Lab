@@ -1,4 +1,4 @@
-﻿namespace Homework_3.JosephsTask
+﻿namespace Homework_3.Collections
 {
     public class Node<T>
     {

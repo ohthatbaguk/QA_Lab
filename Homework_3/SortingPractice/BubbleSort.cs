@@ -9,12 +9,13 @@ namespace Homework_3.SortingPractice
         {
             var list = new ArrayList();
             var random = new Random();
-            var MaxValue = 10;
-            var MinValue = 1;
+            const int maxValue = 10;
+            const int minValue = 1;
             for (var i = 0; i < 25; i++)
             {
-                list.Add(random.Next(MinValue,MaxValue));
+                list.Add(random.Next(minValue, maxValue));
             }
+
             return list;
         }
 

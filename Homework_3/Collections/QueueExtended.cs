@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace Homework_3.Collections
 {
-    public class NewQueue
+    public class QueueExtended
     {
-        public Queue<int> CreateQueue()
+        public Queue<int> CreateQueue(int min, int max)
         {
             var queue = new Queue<int>();
-            Random random = new Random();
-            var MaxValue = 100;
-            var MinValue = 1;
-            for (var i = 0; i < 20; i++)
+            var random = new Random();
+            var maxValue = max;
+            var minValue = min;
+            for (var i = 0; i < random.Next(); i++)
             {
-                queue.Enqueue(random.Next(MinValue, MaxValue));
+                queue.Enqueue(random.Next(minValue, maxValue));
             }
 
             return queue;
@@ -27,7 +27,7 @@ namespace Homework_3.Collections
             return listOfNumbersFromQueue;
         }
 
-        public int FindMaxElementInQueue(Queue<int> queue)
+        public int FindMaxIndexInQueue(Queue<int> queue)
         {
             var imax = 0;
             var list = CreateArrayFromQueue(queue);
@@ -40,7 +40,7 @@ namespace Homework_3.Collections
             return imax;
         }
 
-        public int FindMinElementInQueue(Queue<int> queue)
+        public int FindMinIndexInQueue(Queue<int> queue)
         {
             var imin = 0;
             var list = CreateArrayFromQueue(queue);
@@ -57,21 +57,21 @@ namespace Homework_3.Collections
         {
             ArrayList list = CreateArrayFromQueue(queue);
             var result = 0;
-            var imin = FindMinElementInQueue(queue);
-            var imax = FindMaxElementInQueue(queue);
-            if (imin > imax)
+            var indexOfMinElement = FindMinIndexInQueue(queue);
+            var indexOfMaxElement = FindMaxIndexInQueue(queue);
+            if (indexOfMinElement > indexOfMaxElement)
             {
-                var temp = imin;
-                imin = imax;
-                imax = temp;
+                var temp = indexOfMinElement;
+                indexOfMinElement = indexOfMaxElement;
+                indexOfMaxElement = temp;
             }
 
-            for (var i = imin; i <= imax; i++)
+            for (var i = indexOfMinElement; i <= indexOfMaxElement; i++)
             {
                 result += (int) list[i];
             }
 
             return result;
-        }   
+        }
     }
 }

@@ -4,22 +4,23 @@ using System.Collections.Generic;
 
 namespace Homework_3.Collections
 {
-    public class NewStack
+    public class StackExtended
     {
-        public Stack<int> CreateStack<T>()
+        public Stack<int> CreateStack<T>(int min, int max)
         {
             var stack = new Stack<int>();
             var random = new Random();
-            const int maxValue = 90;
-            const int minValue = 1;
-            for (var i = 0; i < 50; i++)
+            var maxValue = max;
+            var minValue = min;
+            for (var i = 0; i < random.Next(); i++)
             {
-                stack.Push(random.Next(minValue,maxValue)); 
+                stack.Push(random.Next(minValue, maxValue));
             }
+
             return stack;
         }
 
-        public ArrayList CreateArrayWithDigits<T>(Stack<T> stack)
+        private ArrayList CreateArrayWithDigits<T>(Stack<T> stack)
         {
             var digitsList = new ArrayList();
             digitsList.AddRange(stack);

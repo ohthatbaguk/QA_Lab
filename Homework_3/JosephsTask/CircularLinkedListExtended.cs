@@ -2,10 +2,9 @@
 
 namespace Homework_3.JosephsTask
 {
-    public class List
+    public class CircularLinkedListExtended
     {
-        private int numberOfHumans = 67;
-        public CircularLinkedList<int> FillList()
+        public CircularLinkedList<int> FillList(int numberOfHumans)
         {
             CircularLinkedList<int> list = new CircularLinkedList<int>();
             var i = 1;
@@ -18,9 +17,9 @@ namespace Homework_3.JosephsTask
             return list;
         }
 
-        public int FindTheLastOfAlive(CircularLinkedList<int> listOfHumans)
+        public int FindTheLastOfAlive(CircularLinkedList<int> listOfHumans, int step)
         {
-            int number = 0, step = 2;
+            int number = 0;
             for (int i = 1; i <= listOfHumans.Count; i++)
             {
                 number = (number + step) % i;
