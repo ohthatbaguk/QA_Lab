@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Homework_3.Utils;
 
 namespace Homework_3.Collections
 {
     public class StackExtended
     {
-        public Stack<int> CreateStack<T>(int min, int max)
+        public Stack<int> CreateStack<T>()
         {
-            var stack = new Stack<int>();
-            var random = new Random();
-            var maxValue = max;
-            var minValue = min;
-            for (var i = 0; i < random.Next(); i++)
-            {
-                stack.Push(random.Next(minValue, maxValue));
-            }
-
+            var randomStack = new RandomUtils();
+            var stack = randomStack.CreateRandomIntStack();
             return stack;
         }
 

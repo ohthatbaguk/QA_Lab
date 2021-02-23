@@ -11,15 +11,15 @@ namespace Homework_3
         {
             //Task1
             var newStack = new StackExtended();
-            var firstStack = newStack.CreateStack<int>(-67,45);
-            var secondStack = newStack.CreateStack<int>(-74,89);
+            var firstStack = newStack.CreateStack<int>();
+            var secondStack = newStack.CreateStack<int>();
             var resultStack = newStack.FindEqualElementsInStacks(firstStack, secondStack);
             newStack.PrintElementsInStack(resultStack);
 
             Console.WriteLine();
             //Task2
             var newQueue = new QueueExtended();
-            var queue = newQueue.CreateQueue(-15,45);
+            var queue = newQueue.CreateQueue();
             Console.WriteLine("The index of max element: " + newQueue.FindMaxIndexInQueue(queue));
             Console.WriteLine("The index of min element: " + newQueue.FindMinIndexInQueue(queue));
             Console.WriteLine("Result of calculating: " + newQueue.CalculateAmount(queue));
@@ -27,10 +27,10 @@ namespace Homework_3
             Console.WriteLine();
             //Task3
             CircularLinkedListExtended list = new CircularLinkedListExtended();
-            var linkedList = list.FillList(45);
+            var linkedList = list.FillList();
             Console.Write("Init state of list: ");
             list.PrintList(linkedList);
-            Console.WriteLine("\nThe last of us: " + list.FindTheLastOfAlive(linkedList,2));
+            Console.WriteLine("\nThe last of us: " + list.FindTheLastOfAlive(linkedList));
 
             Console.WriteLine();
             //Task4

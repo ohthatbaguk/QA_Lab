@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Homework_3.Utils;
 
 namespace Homework_3.Collections
 {
     public class QueueExtended
     {
-        public Queue<int> CreateQueue(int min, int max)
+        public Queue<int> CreateQueue()
         {
-            var queue = new Queue<int>();
-            var random = new Random();
-            var maxValue = max;
-            var minValue = min;
-            for (var i = 0; i < random.Next(); i++)
-            {
-                queue.Enqueue(random.Next(minValue, maxValue));
-            }
-
+            var randomQueue = new RandomUtils();
+            var queue = randomQueue.CreateRandomIntQueue();
             return queue;
         }
 
