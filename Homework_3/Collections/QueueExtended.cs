@@ -14,7 +14,7 @@ namespace Homework_3.Collections
             return queue;
         }
 
-        public ArrayList CreateArrayFromQueue(Queue<int> queue)
+        private ArrayList CreateArrayFromQueue(Queue<int> queue)
         {
             var listOfNumbersFromQueue = new ArrayList();
             listOfNumbersFromQueue.AddRange(queue);
@@ -23,28 +23,28 @@ namespace Homework_3.Collections
 
         public int FindMaxIndexInQueue(Queue<int> queue)
         {
-            var imax = 0;
+            var indexMax = 0;
             var list = CreateArrayFromQueue(queue);
             for (var i = 0; i < list.Count; i++)
             {
-                if ((int) list[i] > (int) list[imax])
-                    imax = i;
+                if ((int) list[i] > (int) list[indexMax])
+                    indexMax = i;
             }
 
-            return imax;
+            return indexMax;
         }
 
         public int FindMinIndexInQueue(Queue<int> queue)
         {
-            var imin = 0;
+            var indexMin = 0;
             var list = CreateArrayFromQueue(queue);
             for (var i = 0; i < list.Count; i++)
             {
-                if ((int) list[i] < (int) list[imin])
-                    imin = i;
+                if ((int) list[i] < (int) list[indexMin])
+                    indexMin = i;
             }
 
-            return imin;
+            return indexMin;
         }
 
         public int CalculateAmount(Queue<int> queue)

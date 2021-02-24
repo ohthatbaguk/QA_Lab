@@ -37,7 +37,9 @@ namespace Homework_3.SortingPractice
 
         public void DoQuickSort(ArrayList array, int l, int r)
         {
-            int left = l, right = r, middle = (int) array[(left + right) / 2];
+            var left = l;
+            var right = r;
+            var middle = (int) array[(left + right) / 2];
 
             while (left <= right)
             {
