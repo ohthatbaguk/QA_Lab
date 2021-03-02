@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Homework_4.JSON
 {
-    public class ExtendedJson
+    public static class ExtendedJsonReader
     {
-        public string ReadFile()
+        public static string ReadFile()
         {
             string pathToFile = default;
             try

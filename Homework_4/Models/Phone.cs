@@ -8,5 +8,6 @@
         public int Price { get; set; }
         public bool IsAvailable { get; set; }
         public int ShopId { get; set; }
+        
     }
 }

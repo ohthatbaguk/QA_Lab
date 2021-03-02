@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Homework_4.Models
 {
@@ -11,19 +9,11 @@ namespace Homework_4.Models
         public string Description { get; set; }
         public List<Phone> Phones { get; set; }
 
-        public int CountOfPhones(OperationSystemType type)
+        public override string ToString()
         {
-            var count = 0;
-            foreach (var phone in Phones)
-            {
-                if (phone.OperationSystemType == type)
-                {
-                    count++;
-                }
-            }
-
-            return count;
+            return $"{Name}({Id}) - {Description}";
         }
     }
-}
+    }
+
 
