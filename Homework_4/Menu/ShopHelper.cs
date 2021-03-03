@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Homework_4.Exceptions;
 using Homework_4.Models;
+using log4net;
 
 namespace Homework_4.Menu
 {
     public static class ShopHelper
     {
+        static ILog logger =
+            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static int GetPhonesByOperationSystem(Shop shop, OperationSystemType op)
         {
             var amount = 0;
@@ -25,20 +29,21 @@ namespace Homework_4.Menu
             List<Phone> listOfPhones = new List<Phone>();
             while (true)
             {
-                Console.WriteLine("Какой телефон вы желаете приобрести");
+                logger.Info("Welcome!");
+                logger.Info("What phone do you want to buy?");
                 var model = Console.ReadLine();
                 try
                 {
                     listOfPhones = GetPhoneByModel(model, stores);
                     break;
                 }
-                catch (PhoneNotAvailableException)
+                catch (PhoneNotAvailableException e)
                 {
-                    Console.WriteLine("Данный товар отсутствует на складе. Выберите, пожалуйста, другую модель: ");
+                    logger.Error("This product is out of stock. Please choose another model: ");
                 }
                 catch (PhoneNotFoundException)
                 {
-                    Console.WriteLine("Введенный Вами товар не найден. Выберите, пожалуйста, другую модель: ");
+                    logger.Error("The product you entered was not found. Please choose another model: ");
                 }
             }
             return listOfPhones;
@@ -48,24 +53,24 @@ namespace Homework_4.Menu
             var shop = new Shop();
             while (true)
             {
-                Console.WriteLine($"В каком магазине вы хотите приобрести {phone.Model}?");
-                string shopName = Console.ReadLine();
+                logger.Info($"Which store do you want to buy from {phone.Model}?");
+                var shopName = Console.ReadLine();
                 try
                 {
                     shop = GetShop(stores, shopName);
                     if (CheckIsModelAvailableAtShop(phone.Model, shop))
-                        Console.WriteLine($"Заказ {phone.Model} на сумму {phone.Price} успешно оформлен!");
+                        logger.Info($"Order {phone.Model} for the amount {phone.Price} successfully!");
                     else
                         throw new PhoneNotAvailableException();
                     break;
                 }
                 catch (ShopNotFoundException)
                 {
-                    Console.WriteLine("Магазин не найден! Повторите ввод названия магазина:");
+                    logger.Error("No store was found! Repeat entering the store name:");
                 }
                 catch (PhoneNotAvailableException)
                 {
-                    Console.WriteLine("Данная модель недоступна в магазине " + shop.Name + " . Пожалуйста, выберите другой магазин:");
+                    logger.Error("This model is not available in the store" + shop.Name + " . Please, choose another store");
                 }
             }
         }
@@ -95,9 +100,9 @@ namespace Homework_4.Menu
         {
             foreach (var store in stores.Shops)
             {
-                Console.WriteLine($"{store}");
-                Console.WriteLine("IOS Phones amount: " + GetPhonesByOperationSystem(store, OperationSystemType.IOS));
-                Console.WriteLine("Android Phones amount: " + GetPhonesByOperationSystem(store, OperationSystemType.ANDROID));
+                logger.Info($"{store}");
+                logger.Info("IOS Phones amount: " + GetPhonesByOperationSystem(store, OperationSystemType.IOS));
+                logger.Info("Android Phones amount: " + GetPhonesByOperationSystem(store, OperationSystemType.ANDROID));
             }
         }
         public static Shop GetShop(Stores stores, string shopName)
