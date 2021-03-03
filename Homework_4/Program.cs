@@ -1,10 +1,8 @@
-﻿using System.Runtime.InteropServices;
-using Homework_4.JSON;
+﻿using Homework_4.JSON;
 using Homework_4.Menu;
 using Homework_4.Models;
 using log4net.Config;
 using Newtonsoft.Json;
-using NLog;
 
 namespace Homework_4
 {
@@ -13,7 +11,7 @@ namespace Homework_4
         static void Main(string[] args)
         {
             BasicConfigurator.Configure();
-            
+
             var stores = JsonConvert.DeserializeObject<Stores>(ExtendedJsonReader.ReadFile());
             ShopHelper.PrintInfoAboutShops(stores);
 
@@ -22,7 +20,6 @@ namespace Homework_4
 
             //4 task
             ShopHelper.OrderPhone(listOfPhones[0], stores);
-
         }
     }
 }

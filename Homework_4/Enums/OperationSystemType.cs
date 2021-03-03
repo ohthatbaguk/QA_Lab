@@ -2,6 +2,7 @@
 {
     public enum OperationSystemType
     {
-        IOS,ANDROID
+        IOS,
+        ANDROID
     }
 }
