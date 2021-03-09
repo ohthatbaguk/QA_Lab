@@ -1,10 +1,8 @@
 ﻿using Homework_4.JSON;
 using Homework_4.Menu;
-using Homework_4.Models;
 using log4net.Config;
-using Newtonsoft.Json;
 
-namespace Homework_4K
+namespace Homework_4
 {
     class Program
     {
@@ -12,7 +10,7 @@ namespace Homework_4K
         {
             BasicConfigurator.Configure();
 
-            var stores = JsonConvert.DeserializeObject<Stores>(ExtendedJsonReader.ReadFile());
+            var stores = ExtendedJsonReader.readData("appsettings.json");
             ShopHelper.PrintInfoAboutShops(stores);
 
             //3 task 
