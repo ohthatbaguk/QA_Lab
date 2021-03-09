@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Reflection;
-using log4net;
 
 namespace Homework_4.Exceptions
 {
     public class PhoneNotAvailableException : Exception
     {
-        private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public PhoneNotAvailableException()
         {
         }
@@ -16,7 +12,7 @@ namespace Homework_4.Exceptions
         {
         }
 
-        public PhoneNotAvailableException(string message, Exception inner) : base(message,inner)
+        public PhoneNotAvailableException(string message, Exception inner) : base(message, inner)
         {
         }
     }

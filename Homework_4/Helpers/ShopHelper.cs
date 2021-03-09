@@ -68,7 +68,8 @@ namespace Homework_4.Menu
                     }
                     else
                     {
-                        throw new PhoneNotAvailableException("The product is out of stock. Please choose another model.");
+                        throw new PhoneNotAvailableException(
+                            "The product is out of stock. Please choose another model.");
                     }
                 }
                 catch (ShopNotFoundException)
@@ -81,19 +82,27 @@ namespace Homework_4.Menu
         public static List<Phone> GetPhoneByModel(string model, Stores stores)
         {
             var phones = new List<Phone>();
-            foreach (var shop in stores.Shops)
+            try
             {
-                foreach (var phone in shop.Phones)
+                foreach (var shop in stores.Shops)
                 {
-                    if (phone.Model == model && phone.IsAvailable)
+                    foreach (var phone in shop.Phones)
                     {
-                        phones.Add(phone);
-                    }
-                    else if (phone.Model == model && !phone.IsAvailable)
-                    {
-                        throw new PhoneNotAvailableException();
+                        if (phone.Model == model && phone.IsAvailable)
+                        {
+                            phones.Add(phone);
+                        }
+
+                        else if (phone.Model == model && !phone.IsAvailable)
+                        {
+                            throw new PhoneNotAvailableException("Phone not available.");
+                        }
                     }
                 }
+            }
+            catch (PhoneNotAvailableException ex)
+            {
+                Logger.Error(ex.Message);
             }
 
             if (phones.Count == 0)
