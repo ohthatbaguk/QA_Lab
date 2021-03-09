@@ -8,11 +8,11 @@ namespace Homework_4.Exceptions
         {
         }
 
-        public ShopNotFoundException(string message)
+        public ShopNotFoundException(string message) : base(message)
         {
         }
 
-        public ShopNotFoundException(string message, Exception inner)
+        public ShopNotFoundException(string message, Exception inner) : base(message,inner)
         {
         }
     }

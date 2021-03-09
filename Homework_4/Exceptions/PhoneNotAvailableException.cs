@@ -12,12 +12,11 @@ namespace Homework_4.Exceptions
         {
         }
 
-        public PhoneNotAvailableException(string message)
+        public PhoneNotAvailableException(string message) : base(message)
         {
-            Logger.Error(message);
         }
 
-        public PhoneNotAvailableException(string message, Exception inner)
+        public PhoneNotAvailableException(string message, Exception inner) : base(message,inner)
         {
         }
     }

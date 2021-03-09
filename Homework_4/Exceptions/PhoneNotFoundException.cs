@@ -8,11 +8,11 @@ namespace Homework_4.Exceptions
         {
         }
 
-        public PhoneNotFoundException(string message)
+        public PhoneNotFoundException(string message) : base(message)
         {
         }
 
-        public PhoneNotFoundException(string message, Exception inner)
+        public PhoneNotFoundException(string message, Exception inner) : base(message,inner)
         {
         }
     }
