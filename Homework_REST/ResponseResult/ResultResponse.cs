@@ -1,8 +1,5 @@
 using System.Net.Http;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using Homework_REST.Models;
-using Xunit.Abstractions;
 
 namespace Homework_REST.ResponseResult
 {
@@ -22,17 +19,5 @@ namespace Homework_REST.ResponseResult
 
             return  JsonSerializer.Serialize(jsonElement, options);
         }
-        
-        // public static string PrettyJson(string unPrettyJson)
-        // {
-        //     var options = new JsonSerializerOptions
-        //     {
-        //         WriteIndented = true
-        //     };
-        //
-        //     var jsonElement = JsonSerializer.Deserialize<JsonElement>(unPrettyJson);
-        //
-        //     return JsonSerializer.Serialize(jsonElement, options);
-        // }
     }
 }

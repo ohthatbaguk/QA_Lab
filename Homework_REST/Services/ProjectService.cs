@@ -50,6 +50,12 @@ namespace Homework_REST.Services
             return ClientExtended.ExecuteAsync<HttpResponseMessage>(client, request);
         }
         
+        public static Task<HttpResponseMessage> UpdateSuite(HttpClient client, string suiteId, RequestSuiteModel requestSuiteModel)
+        {
+            var request = HttpRequestBuilder.Build($"index.php?/api/v2/update_suite/{suiteId}", HttpMethod.Post, requestSuiteModel);
+            return ClientExtended.ExecuteAsync<HttpResponseMessage>(client, request);
+        }
+        
         public static int GetProjectId(HttpResponseMessage responseMessage)
         {
             var projectId = JsonConvert.DeserializeObject<ResponseProjectModel>
