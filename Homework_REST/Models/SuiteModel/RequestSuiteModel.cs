@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Homework_REST.Models
+namespace Homework_REST.Models.SuiteModel
 {
     public class RequestSuiteModel
     {

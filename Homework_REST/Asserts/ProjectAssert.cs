@@ -1,6 +1,7 @@
 using System.Net.Http;
 using FluentAssertions;
 using Homework_REST.Models;
+using Homework_REST.Models.ProjectModel;
 using Newtonsoft.Json;
 
 namespace Homework_REST.Asserts

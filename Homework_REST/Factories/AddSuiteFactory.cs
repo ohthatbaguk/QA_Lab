@@ -1,4 +1,7 @@
 using Homework_REST.Models;
+using Homework_REST.Models.SuiteModel;
+using Homework_REST.Utils;
+using Homework_REST.ValidationConstants;
 
 namespace Homework_REST.Factories
 {
@@ -8,17 +11,8 @@ namespace Homework_REST.Factories
         {
             return new RequestSuiteModel
             {
-                Name = "Suite Nat",
-                Description = "La la la"
-            };
-        }
-
-        public static RequestSuiteModel UpdateSuiteModel()
-        {
-            return new RequestSuiteModel
-            {
-                Name = "Update Suite",
-                Description = "Ho ho ho"
+                Name = RandomUtils.GenerateString(Constants.RequestProjectModel.NotesMaxLength),
+                Description = RandomUtils.GenerateString(Constants.RequestProjectModel.NotesMaxLength)
             };
         }
     }

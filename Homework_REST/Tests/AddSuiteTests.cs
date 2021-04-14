@@ -1,9 +1,10 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Homework_REST.Extensions;
+using Homework_REST.Base;
 using Homework_REST.Factories;
-using Homework_REST.Models;
+using Homework_REST.Mock;
+using Homework_REST.Models.SuiteModel;
 using Homework_REST.ResponseResult;
 using Homework_REST.Services;
 using Xunit;
@@ -11,9 +12,11 @@ using Xunit.Abstractions;
 
 namespace Homework_REST.Tests
 {
-    public class AddSuiteTests
+    public class AddSuiteTests : BaseTest
     {
         private readonly ITestOutputHelper _testOutputHelper;
+
+        private const int ProjectId = 651;
 
         public AddSuiteTests(ITestOutputHelper testOutputHelper)
         {
@@ -25,13 +28,13 @@ namespace Homework_REST.Tests
         public async Task AddSuite_WhenSuite_ShouldReturnOK()
         {
             //Arrange
-            var client = Extension.CreateHttpClient();
-            const int projectId = 651;
+            var client = CreateHttpClient();
+          
 
             var suiteModel = AddSuiteFactory.GetSuiteModel();
             
             //Act
-            var response = await ProjectService.AddSuite(client, projectId, suiteModel);
+            var response = await ProjectService.AddSuite(client, ProjectId, suiteModel);
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -43,11 +46,10 @@ namespace Homework_REST.Tests
         public async Task AddSuite_WhenSuite_ShouldReturnBadRequest( RequestSuiteModel requestSuiteModel)
         {
             //Arrange
-            var client = Extension.CreateHttpClient();
-            const int projectId = 651;
-            
+            var client = CreateHttpClient();
+
             //Act
-            var response = await ProjectService.AddSuite(client, projectId, requestSuiteModel);
+            var response = await ProjectService.AddSuite(client, ProjectId, requestSuiteModel);
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -58,13 +60,12 @@ namespace Homework_REST.Tests
         public async Task AddSuite_WhenSuite_ShouldReturnUnauthorized()
         {
             //Arrange
-            var client = Extension.EmptyAuthorization();
-            const int projectId = 651;
+            var client = CreateHttpClient();
 
             var suiteModel = AddSuiteFactory.GetSuiteModel();
             
             //Act
-            var response = await ProjectService.AddSuite(client, projectId, suiteModel);
+            var response = await ProjectService.AddSuite(client, ProjectId, suiteModel);
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);

@@ -1,7 +1,8 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Homework_REST.Extensions;
+using Homework_REST.Base;
+using Homework_REST.Mock;
 using Homework_REST.ResponseResult;
 using Homework_REST.Services;
 using Homework_REST.Steps;
@@ -10,9 +11,10 @@ using Xunit.Abstractions;
 
 namespace Homework_REST.Tests
 {
-    public class GetProjectTests
+    public class GetProjectTests : BaseTest
     {
         private readonly ITestOutputHelper _testOutputHelper;
+        private const int projectId = 625;
 
         public GetProjectTests(ITestOutputHelper testOutputHelper)
         {
@@ -23,9 +25,7 @@ namespace Homework_REST.Tests
         public async Task GetProject_WhenUnauthorized_ShouldReturnUnauthorized()
         {
             //Arrange
-
-            var client = Extension.EmptyAuthorization();
-            const int projectId = 625;
+            var client = EmptyAuthorization();
             
             //Act
             var response = await ProjectService.GetProject(client, projectId);
@@ -40,9 +40,8 @@ namespace Homework_REST.Tests
         public async Task GetProject_ShouldReturnOK()
         {
             //Arrange
-            var client = Extension.CreateHttpClient();
-            const int projectId = 625;
-            
+            var client = CreateHttpClient();
+
             //Act
             var response = await ProjectSteps.GetProject(client, projectId);
 
@@ -55,12 +54,28 @@ namespace Homework_REST.Tests
         public async Task GetProject_WhenGetProject_ShouldReturnBadRequest()
         {
             //Arrange
-            var client = Extension.CreateHttpClient();
-            const int projectId = 01;
+            var client = CreateHttpClient();
+            const int id = 01;
             
             //Act
-            var response = await ProjectService.GetProject(client, projectId);
+            var response = await ProjectService.GetProject(client, id);
           
+            //Assert
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            _testOutputHelper.WriteLine(ResultResponse.Result(response));
+        }
+        
+        [Theory(DisplayName = 
+            "GET index.php?/api/v2/get_project/{projectId} when projectId missing value returns 400")]
+        [MemberData(nameof(Mocks.IncorrectAndMissingValues), MemberType = typeof(Mocks))]
+        public async Task GetProject_WhenProjectIdMissingValue_ShouldReturnBadRequest(int id)
+        {
+            //Arrange
+            var client = CreateHttpClient();
+            
+            //Act
+            var response = await ProjectService.GetProject(client, id);
+
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
             _testOutputHelper.WriteLine(ResultResponse.Result(response));
@@ -68,35 +83,18 @@ namespace Homework_REST.Tests
         
         [Fact(DisplayName = 
             "GET index.php?/api/v2/get_project/{projectId} when projectId has an incorrect format returns 400")]
-        public async Task GetProject_WhenProjectIdHasIncorrectFormat_ShouldReturnBadRequest1()
+        public async Task GetProject_WhenProjectIdHasIncorrectFormat_ShouldReturnBadRequest()
         {
             //Arrange
-            var client = Extension.CreateHttpClient();
-            const string projectId = "qwerty";
+            var client = CreateHttpClient();
+            const string id = "qwerty";
 
             //Act
-            var response = await ProjectService.GetProject(client, projectId);
+            var response = await ProjectService.GetProject(client, id);
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
             _testOutputHelper.WriteLine(ResultResponse.Result(response));
         }
-        
-        [Fact(DisplayName = 
-            "GET index.php?/api/v2/get_project/{projectId} when projectId missing value returns 400")]
-        public async Task GetProject_WhenProjectIMissingValue_ShouldReturnBadRequest1()
-        {
-            //Arrange
-            var client = Extension.CreateHttpClient();
-            const string projectId = null;
-
-            //Act
-            var response = await ProjectService.GetProject(client, projectId);
-
-            //Assert
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-            _testOutputHelper.WriteLine(ResultResponse.Result(response));
-        }
-        
     }
 }

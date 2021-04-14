@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Homework_REST.Models
+namespace Homework_REST.Models.ProjectModel
 {
     public class RequestProjectModel
     {

@@ -1,4 +1,7 @@
 using Homework_REST.Models;
+using Homework_REST.Models.ProjectModel;
+using Homework_REST.Utils;
+using Homework_REST.ValidationConstants;
 
 namespace Homework_REST.Factories
 {
@@ -9,8 +12,8 @@ namespace Homework_REST.Factories
             return new RequestProjectModel
             {
                 Name = "Project Nat",
-                Announcement = "Bla bla bla",
-                ShowAnnouncement = true,
+                Announcement = RandomUtils.GenerateString(Constants.RequestProjectModel.NotesMaxLength),
+                ShowAnnouncement = true
             };
         }
     }
