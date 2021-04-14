@@ -13,7 +13,8 @@ namespace Homework_REST.Configuration
         public static string Username => Configuration[nameof(Username)];
         public static string Password => Configuration[nameof(Password)];
         
-         private Configurator()
+         
+        static Configurator()
         {
             s_configuration = new Lazy<IConfiguration>(BuildConfiguration);
         }

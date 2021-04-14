@@ -5,7 +5,7 @@ using Homework_REST.ValidationConstants;
 
 namespace Homework_REST.Factories
 {
-    public class AddProjectFactory
+    public static class AddProjectFactory
     {
         public static RequestProjectModel GetProjectModel()
         {

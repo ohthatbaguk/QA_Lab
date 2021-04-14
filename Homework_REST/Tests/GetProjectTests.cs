@@ -14,7 +14,7 @@ namespace Homework_REST.Tests
     public class GetProjectTests : BaseTest
     {
         private readonly ITestOutputHelper _testOutputHelper;
-        private const int projectId = 625;
+        private const int ProjectId = 625;
 
         public GetProjectTests(ITestOutputHelper testOutputHelper)
         {
@@ -28,7 +28,7 @@ namespace Homework_REST.Tests
             var client = EmptyAuthorization();
             
             //Act
-            var response = await ProjectService.GetProject(client, projectId);
+            var response = await ProjectService.GetProject(client, ProjectId);
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -43,7 +43,7 @@ namespace Homework_REST.Tests
             var client = CreateHttpClient();
 
             //Act
-            var response = await ProjectSteps.GetProject(client, projectId);
+            var response = await ProjectSteps.GetProject(client, ProjectId);
 
             //Assert
            response.StatusCode.Should().Be(HttpStatusCode.OK);

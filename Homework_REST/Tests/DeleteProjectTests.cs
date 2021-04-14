@@ -12,7 +12,7 @@ namespace Homework_REST.Tests
     public class DeleteProjectTests : BaseTest
     {
         private readonly ITestOutputHelper _testOutputHelper;
-        private const int ProjectId = 763;
+        private const int ProjectId = 764;
         public DeleteProjectTests(ITestOutputHelper testOutputHelper)
         {
             _testOutputHelper = testOutputHelper;
