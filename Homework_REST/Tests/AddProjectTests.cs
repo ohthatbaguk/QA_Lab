@@ -63,7 +63,7 @@ namespace Homework_REST.Tests
         }
         
         [Fact(DisplayName = "POST index.php?/api/v2/add_project when unauthorized returns 401")]
-        public async Task AddProject_WhenAddProject_ShouldReturnUnauthorized()
+        public async Task AddProject_WhenUnauthorized_ShouldReturnUnauthorized()
         {
             //Arrange
             var client = EmptyAuthorization();

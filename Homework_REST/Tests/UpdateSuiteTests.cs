@@ -44,8 +44,7 @@ namespace Homework_REST.Tests
         {
             //Arrange
             var client = EmptyAuthorization();
-           
-
+            
             var suiteModel = AddSuiteFactory.GetSuiteModel();
             
             //Act

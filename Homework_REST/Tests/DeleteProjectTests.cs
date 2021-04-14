@@ -2,6 +2,7 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Homework_REST.Base;
+using Homework_REST.ResponseResult;
 using Homework_REST.Services;
 using Xunit;
 using Xunit.Abstractions;
@@ -11,7 +12,7 @@ namespace Homework_REST.Tests
     public class DeleteProjectTests : BaseTest
     {
         private readonly ITestOutputHelper _testOutputHelper;
-        private const int ProjectId = 625;
+        private const int ProjectId = 763;
         public DeleteProjectTests(ITestOutputHelper testOutputHelper)
         {
             _testOutputHelper = testOutputHelper;
@@ -40,6 +41,7 @@ namespace Homework_REST.Tests
 
             //Act
             var response = await ProjectService.DeleteProject(client, projectId);
+            _testOutputHelper.WriteLine(ResultResponse.Result(response));
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -55,6 +57,7 @@ namespace Homework_REST.Tests
 
             //Act
             var response = await ProjectService.DeleteProject(client, projectId);
+            _testOutputHelper.WriteLine(ResultResponse.Result(response));
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);

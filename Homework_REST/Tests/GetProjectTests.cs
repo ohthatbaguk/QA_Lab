@@ -50,7 +50,8 @@ namespace Homework_REST.Tests
            _testOutputHelper.WriteLine(ResultResponse.Result(response));
         }
         
-        [Fact(DisplayName = "GET index.php?/api/v2/get_project/{projectId} when projectId has an incorrect value")]
+        [Fact(DisplayName =
+            "GET index.php?/api/v2/get_project/{projectId} when projectId has an incorrect value returns 400")]
         public async Task GetProject_WhenGetProject_ShouldReturnBadRequest()
         {
             //Arrange

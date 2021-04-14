@@ -57,7 +57,7 @@ namespace Homework_REST.Tests
         }
         
         [Fact(DisplayName = "POST index.php?/api/v2/add_suite/{project_id} when unauthorized returns 401")]
-        public async Task AddSuite_WhenSuite_ShouldReturnUnauthorized()
+        public async Task AddSuite_WhenUnauthorized_ShouldReturnUnauthorized()
         {
             //Arrange
             var client = CreateHttpClient();
