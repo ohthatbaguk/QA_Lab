@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,18 +7,20 @@ using Microsoft.Extensions.Logging;
 
 namespace Homework_REST.Clients
 {
-    public sealed class ClientExtended : ClientLogging
+    public sealed class ClientExtended : HttpClient
     {
-        public ClientExtended(ILogger logger) : base(logger)
+        private readonly ClientLogging _clientLogging;
+        public ClientExtended(ILogger logger, Uri baseUrl)
         {
+            _clientLogging = new ClientLogging(logger);
+            BaseAddress = baseUrl;
         }
-        
-        public static async Task<HttpResponseMessage> ExecuteAsync(HttpClient client, 
-            HttpRequestMessage request, CancellationToken token = default)
+               
+        public new async Task<HttpResponseMessage> ExecuteAsync(HttpRequestMessage request, CancellationToken token = default)
         {
-            //LogRequest(request);
-            var response = await client.SendAsync(request, token);
-            //LogResponse(response);
+            // _clientLogging.LogRequest(request);
+            var response = await base.SendAsync(request, token);
+            // _clientLogging.LogResponse(response);
             return response;
         }
 

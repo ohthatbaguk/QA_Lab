@@ -1,44 +1,39 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
+﻿using System.Threading.Tasks;
+using Homework_REST.Clients;
 using Homework_REST.Configuration;
+using Homework_REST.Extensions;
+using Homework_REST.Services;
+using Homework_REST.Steps;
+using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
 
 namespace Homework_REST.Base
 {
-    public class BaseTest
+    public abstract class BaseTest
     {
-        private static readonly HttpClient Client = new HttpClient
-        {
-            BaseAddress =  new Uri(Configurator.AppUrl)
-        };
-        
-        protected static HttpClient CreateHttpClient()
-        {
-           Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-                EncodeCredential(Configurator.Username, Configurator.Password));
+        protected readonly ClientExtended ClientExtended;
+        protected readonly ProjectService ProjectService;
+        protected readonly ProjectSteps ProjectSteps;
 
-            return Client;
-        }
-
-        protected static HttpClient EmptyAuthorization()
+        public BaseTest(ITestOutputHelper outputHelper)
         {
-            Client.DefaultRequestHeaders.Authorization = null;
             
-            return Client;
-        }
-        
-        private static string EncodeCredential(string username, string password)
-        {
-            if (string.IsNullOrWhiteSpace(username))
+            var loggerFactory = LoggerFactory.Create(builder =>
             {
-                throw new ArgumentNullException(nameof(username));
-            }
+                builder
+                    .ClearProviders()
+                    .AddXUnit(outputHelper);
+            });
+            
+            ClientExtended = ClientConfiguration.ConfigureHttpClient(loggerFactory);
+            ProjectService = new ProjectService(ClientExtended);
+            ProjectSteps = new ProjectSteps(ProjectService);
+        }
 
-            var encoding = Encoding.UTF8;
-            var credential = $"{username}:{password}";
-
-            return Convert.ToBase64String(encoding.GetBytes(credential)); 
+        protected async Task SetAuthorization()
+        {
+            var token = $"{Startup.AppSettings.Username}:{Startup.AppSettings.Password}";
+             ClientExtended.SetAuthorization(token);
         }
     }
 }

@@ -8,9 +8,15 @@ namespace Homework_REST.Steps
 {
     public class ProjectSteps
     {
-        public static async Task<HttpResponseMessage> GetProject(HttpClient client, int projectId)
+        private readonly ProjectService _projectService;
+
+        public ProjectSteps(ProjectService projectService)
         {
-            var response = await ProjectService.GetProject(client, projectId);
+            _projectService = projectService;
+        }
+        public async Task<HttpResponseMessage> GetProject(int projectId)
+        {
+            var response = await _projectService.GetProject(projectId);
             response.VerifyResponseStatusCode(HttpStatusCode.OK, "An error occurred while get project");
             return response.EnsureSuccessStatusCode();
         }

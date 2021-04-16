@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Homework_REST.Asserts;
@@ -7,9 +6,7 @@ using Homework_REST.Base;
 using Homework_REST.Factories;
 using Homework_REST.Mock;
 using Homework_REST.Models.ProjectModel;
-using Homework_REST.ResponseResult;
 using Homework_REST.Services;
-using Homework_REST.Steps;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -17,28 +14,22 @@ namespace Homework_REST.Tests
 {
     public class AddProjectTests : BaseTest
     {
-        private readonly ITestOutputHelper _testOutputHelper;
-       
-
-        public AddProjectTests(ITestOutputHelper testOutputHelper) 
+        public AddProjectTests(ITestOutputHelper outputHelper) : base(outputHelper)
         {
-            _testOutputHelper = testOutputHelper;
-   
         }
         
         [Fact(DisplayName = "POST index.php?/api/v2/add_project when returns 200")]
         public async Task AddProject_WhenProject_ShouldReturnOK()
         {
             //Arrange
-            var client = CreateHttpClient();
+            await SetAuthorization();
             var projectModel = AddProjectFactory.GetProjectModel();
             
             //Act
-            var response = await ProjectService.AddProject(client, projectModel);
+            var response = await ProjectService.AddProject(projectModel);
             var projectId = ProjectService.GetProjectId(response);
-            var project = await ProjectSteps.GetProject(client, projectId);
+            var project = await ProjectSteps.GetProject(projectId);
             
-            _testOutputHelper.WriteLine(ResultResponse.Result(project));
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -52,30 +43,31 @@ namespace Homework_REST.Tests
             RequestProjectModel requestProjectModel)
         {
             //Arrange
-            var client = CreateHttpClient();
+            await SetAuthorization();
             
             //Act
-            var response = await ProjectService.AddProject(client, requestProjectModel);
+            var response = await ProjectService.AddProject(requestProjectModel);
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-            _testOutputHelper.WriteLine(ResultResponse.Result(response));
+           
         }
         
         [Fact(DisplayName = "POST index.php?/api/v2/add_project when unauthorized returns 401")]
         public async Task AddProject_WhenUnauthorized_ShouldReturnUnauthorized()
         {
             //Arrange
-            var client = EmptyAuthorization();
+            //TODO clear authorization
+            await SetAuthorization(); 
             var projectModel = AddProjectFactory.GetProjectModel();
             
             //Act
-            var response = await ProjectService.AddProject(client, projectModel);
-
-            _testOutputHelper.WriteLine(ResultResponse.Result(response));
+            var response = await ProjectService.AddProject(projectModel);
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
+
+
     }
 }

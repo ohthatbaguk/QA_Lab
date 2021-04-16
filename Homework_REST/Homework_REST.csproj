@@ -9,15 +9,24 @@
     <ItemGroup>
         <PackageReference Include="Bogus" Version="33.0.1" />
         <PackageReference Include="FluentAssertions" Version="6.0.0-alpha0002" />
+        <PackageReference Include="IL.FluentValidation.Extensions.Options" Version="9.0.13" />
+        <PackageReference Include="MartinCostello.Logging.XUnit" Version="0.1.1" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0-preview.3.21201.4" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.0-preview.3.21201.4" />
         <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0-preview.3.21201.4" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0-preview.3.21201.4" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-preview.3.21201.4" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0-preview.3.21201.4" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="6.0.0-preview.3.21201.4" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+        <PackageReference Include="netfx-System.Collections.Generic.CollectionAddRange.Tests.xUnit" Version="1.0.0.1" />
+        <PackageReference Include="netfx-System.Collections.Generic.DictionaryGetOrAdd.Tests.xUnit" Version="1.1.1.1" />
         <PackageReference Include="NewtonsoftJsonSerializerResolver" Version="1.0.0" />
         <PackageReference Include="NLog" Version="4.7.8" />
+        <PackageReference Include="Warappa.Microsoft.Extensions.DependencyInjection.ServiceCollectionModule" Version="1.0.0" />
         <PackageReference Include="xunit" Version="2.4.0" />
+        <PackageReference Include="Xunit.DependencyInjection" Version="7.1.0" />
+        <PackageReference Include="Xunit.DependencyInjection.Logging" Version="2.1.0" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
         <PackageReference Include="coverlet.collector" Version="1.2.0" />
     </ItemGroup>

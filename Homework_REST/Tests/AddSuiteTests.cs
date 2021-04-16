@@ -14,31 +14,26 @@ namespace Homework_REST.Tests
 {
     public class AddSuiteTests : BaseTest
     {
-        private readonly ITestOutputHelper _testOutputHelper;
+        public AddSuiteTests(ITestOutputHelper outputHelper) : base(outputHelper)
+        {
+        }
 
         private const int ProjectId = 651;
 
-        public AddSuiteTests(ITestOutputHelper testOutputHelper)
-        {
-            _testOutputHelper = testOutputHelper;
-   
-        }
-        
+    
         [Fact(DisplayName = "POST index.php?/api/v2/add_suite/{project_id} when suite returns 200")]
         public async Task AddSuite_WhenSuite_ShouldReturnOK()
         {
             //Arrange
-            var client = CreateHttpClient();
-          
+            await SetAuthorization();
 
             var suiteModel = AddSuiteFactory.GetSuiteModel();
             
             //Act
-            var response = await ProjectService.AddSuite(client, ProjectId, suiteModel);
+            var response = await ProjectService.AddSuite(ProjectId, suiteModel);
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            _testOutputHelper.WriteLine(ResultResponse.Result(response));
         }
         
         [Theory(DisplayName = "POST index.php?/api/v2/add_suite/{project_id} when required field missing returns 400")]
@@ -46,30 +41,28 @@ namespace Homework_REST.Tests
         public async Task AddSuite_WhenSuite_ShouldReturnBadRequest( RequestSuiteModel requestSuiteModel)
         {
             //Arrange
-            var client = CreateHttpClient();
+            await SetAuthorization();
 
             //Act
-            var response = await ProjectService.AddSuite(client, ProjectId, requestSuiteModel);
+            var response = await ProjectService.AddSuite(ProjectId, requestSuiteModel);
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-            _testOutputHelper.WriteLine(ResultResponse.Result(response));
         }
         
         [Fact(DisplayName = "POST index.php?/api/v2/add_suite/{project_id} when unauthorized returns 401")]
         public async Task AddSuite_WhenUnauthorized_ShouldReturnUnauthorized()
         {
             //Arrange
-            var client = CreateHttpClient();
+            await SetAuthorization();
 
             var suiteModel = AddSuiteFactory.GetSuiteModel();
             
             //Act
-            var response = await ProjectService.AddSuite(client, ProjectId, suiteModel);
+            var response = await ProjectService.AddSuite(ProjectId, suiteModel);
             
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-            _testOutputHelper.WriteLine(ResultResponse.Result(response));
         }
     }
 }
