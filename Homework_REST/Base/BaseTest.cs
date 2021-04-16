@@ -32,7 +32,7 @@ namespace Homework_REST.Base
 
         protected async Task SetAuthorization()
         {
-            var token = $"{Startup.AppSettings.Username}:{Startup.AppSettings.Password}";
+            var token = $"{Startup.AppSettings.Users.UserName}:{Startup.AppSettings.Users.Password}";
              ClientExtended.SetAuthorization(token);
         }
     }

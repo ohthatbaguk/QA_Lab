@@ -9,7 +9,7 @@ namespace Homework_REST.Configuration
         public static ClientExtended ConfigureHttpClient(ILoggerFactory loggerFactory)
         {
             var httpClient = new ClientExtended(loggerFactory.CreateLogger<ClientExtended>(),
-                new Uri(Startup.AppSettings.AppUrl));
+                new Uri(Startup.AppSettings.Services.TestRailApp.AppUrl));
 
             return httpClient;
         }

@@ -1,13 +1,13 @@
 
+using System.Collections.Generic;
+
 namespace Homework_REST.Configuration
 {
     public class AppSettings 
     {
-        public string AppUrl { get; set; }
-        
-        public string Username { get; set; }
-        
-        public string Password { get; set; }
+       public ServiceSettings Services { get; set; }
+       
+       public User Users { get; set; }
         
     }
 }
