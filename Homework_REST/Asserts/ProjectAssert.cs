@@ -1,8 +1,7 @@
 using System.Net.Http;
 using FluentAssertions;
-using Homework_REST.Models;
 using Homework_REST.Models.ProjectModel;
-using Newtonsoft.Json;
+using Homework_REST.Utils;
 
 namespace Homework_REST.Asserts
 {
@@ -12,15 +11,13 @@ namespace Homework_REST.Asserts
             RequestProjectModel projectModel,
             HttpResponseMessage responseMessage)
         {
-            var response = responseMessage.Content.ReadAsStringAsync().Result;
-
-            var project = JsonConvert.DeserializeObject<ResponseProjectModel>(response);
+            var project = NewtonsoftJsonSerializer.Deserialize<ResponseProjectModel>(responseMessage);
 
             project.Announcement.Should().Be(projectModel.Announcement);
             project.Name.Should().Be(projectModel.Name);
             project.Id.Should().NotBe(null);
             project.ShowAnnouncement.Should().Be(projectModel.ShowAnnouncement);
-            project.Url.Should().NotBe(null);
+            project.Url.Should().Contain(Startup.AppSettings.Services.TestRailApp.AppUrl);
         }
     }
 }

@@ -12,8 +12,8 @@ namespace Homework_REST.Extensions
         {
             if (response.StatusCode == expectedStatusCode) return;
             throw new PreconditionFailedException(
-                
-                $"Invalid response status code. Expected to be {expectedStatusCode} but found {response.StatusCode}" +  $"\n{message}");
+                $"Invalid response status code. Expected to be {expectedStatusCode} but found {response.StatusCode}" +
+                $"\n{message}");
         }
     }
 }

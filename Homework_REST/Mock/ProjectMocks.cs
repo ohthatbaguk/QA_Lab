@@ -1,19 +1,17 @@
 using System.Collections.Generic;
-using Homework_REST.Models;
+using Bogus;
 using Homework_REST.Models.ProjectModel;
-using Homework_REST.Models.SuiteModel;
 using Homework_REST.Utils;
-using Homework_REST.ValidationConstants;
 
 namespace Homework_REST.Mock
 {
-    public class Mocks
+    public class ProjectMocks
     {
         public static IEnumerable<object[]> ProjectMissingValues()
         {
             var missingRequiredName = new RequestProjectModel
             {
-                Announcement = "This is project",
+                Announcement = new Faker().Lorem.Sentence(3),
                 ShowAnnouncement = true
             };
             
@@ -26,11 +24,14 @@ namespace Homework_REST.Mock
             };
         }
         
-        public static IEnumerable<object[]> SuiteMissingValues()
+        public static IEnumerable<object[]> ProjectIncorrectValues()
         {
-            var missingRequiredName = new RequestSuiteModel()
+            var missingRequiredName = new RequestProjectModel
             {
-                Description = "Na na na"
+                Name = RandomUtils.GenerateString(
+                    Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1),
+                Announcement = new Faker().Lorem.Sentence(3),
+                ShowAnnouncement = true
             };
             
             return new List<object[]>
@@ -38,31 +39,14 @@ namespace Homework_REST.Mock
                 new object[]
                 {
                     missingRequiredName
-                },
-            };
-        } 
-        
-        public static IEnumerable<object[]> MoreThanMaxLengthValues()
-        {
-            var missingRequiredName = new RequestSuiteModel
-            {
-                Name = RandomUtils.GenerateString(Constants.RequestProjectModel.NotesMaxLength + 1),
-                Description = "Na na na"
-            };
-            
-            return new List<object[]>
-            {
-                new object[]
-                {
-                    missingRequiredName
-                },
+                }
             };
         }
         
-        public static IEnumerable<object[]> IncorrectAndMissingValues()
+        public static IEnumerable<object[]> IncorrectProjectId()
         {
-            const int missingId = 13;
-            const string incorrectId = null;
+            const int incorrectId = 000;
+            const string missingId = null;
             
             return new List<object[]>
             {

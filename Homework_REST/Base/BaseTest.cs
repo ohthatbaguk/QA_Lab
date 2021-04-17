@@ -17,14 +17,13 @@ namespace Homework_REST.Base
 
         public BaseTest(ITestOutputHelper outputHelper)
         {
-            
             var loggerFactory = LoggerFactory.Create(builder =>
             {
                 builder
                     .ClearProviders()
                     .AddXUnit(outputHelper);
             });
-            
+
             ClientExtended = ClientConfiguration.ConfigureHttpClient(loggerFactory);
             ProjectService = new ProjectService(ClientExtended);
             ProjectSteps = new ProjectSteps(ProjectService);
@@ -33,7 +32,7 @@ namespace Homework_REST.Base
         protected async Task SetAuthorization()
         {
             var token = $"{Startup.AppSettings.Users.UserName}:{Startup.AppSettings.Users.Password}";
-             ClientExtended.SetAuthorization(token);
+            ClientExtended.SetAuthorization(token);
         }
     }
 }

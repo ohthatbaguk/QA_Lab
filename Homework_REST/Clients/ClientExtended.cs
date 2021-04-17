@@ -10,20 +10,20 @@ namespace Homework_REST.Clients
     public sealed class ClientExtended : HttpClient
     {
         private readonly ClientLogging _clientLogging;
+
         public ClientExtended(ILogger logger, Uri baseUrl)
         {
             _clientLogging = new ClientLogging(logger);
             BaseAddress = baseUrl;
         }
-               
-        public new async Task<HttpResponseMessage> ExecuteAsync(HttpRequestMessage request, CancellationToken token = default)
+
+        public async Task<HttpResponseMessage> ExecuteAsync(HttpRequestMessage request,
+            CancellationToken token = default)
         {
-            // _clientLogging.LogRequest(request);
-            var response = await base.SendAsync(request, token);
-            // _clientLogging.LogResponse(response);
+            _clientLogging.LogRequest(request);
+            var response = await SendAsync(request, token);
+            _clientLogging.LogResponse(response);
             return response;
         }
-
-    
     }
 }

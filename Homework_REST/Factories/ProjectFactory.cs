@@ -1,18 +1,16 @@
-using Homework_REST.Models;
+using Bogus;
 using Homework_REST.Models.ProjectModel;
-using Homework_REST.Utils;
-using Homework_REST.ValidationConstants;
 
 namespace Homework_REST.Factories
 {
-    public static class AddProjectFactory
+    public static class ProjectFactory
     {
         public static RequestProjectModel GetProjectModel()
         {
             return new RequestProjectModel
             {
-                Name = "Project Nat",
-                Announcement = RandomUtils.GenerateString(Constants.RequestProjectModel.NotesMaxLength),
+                Name = new Faker().Company.Random.Word(),
+                Announcement = new Faker().Lorem.Sentence(3),
                 ShowAnnouncement = true
             };
         }

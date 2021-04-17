@@ -7,18 +7,17 @@ namespace Homework_REST
     {
         private readonly AppSettings _appSettings = new AppSettings();
 
-            public static AppSettings AppSettings { get; private set; }
+        public static AppSettings AppSettings { get; private set; }
 
-            public Startup()
-            {
-                var configuration = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json")
-                    .Build();
+        public Startup()
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
 
-                configuration.Bind(_appSettings);
+            configuration.Bind(_appSettings);
 
-                AppSettings = _appSettings;
-            }
-            
+            AppSettings = _appSettings;
+        }
     }
 }

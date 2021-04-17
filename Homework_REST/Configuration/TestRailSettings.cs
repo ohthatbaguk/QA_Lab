@@ -1,5 +1,3 @@
-using System;
-
 namespace Homework_REST.Configuration
 {
     public class TestRailSettings

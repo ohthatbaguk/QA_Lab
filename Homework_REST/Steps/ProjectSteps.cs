@@ -14,12 +14,12 @@ namespace Homework_REST.Steps
         {
             _projectService = projectService;
         }
+
         public async Task<HttpResponseMessage> GetProject(int projectId)
         {
             var response = await _projectService.GetProject(projectId);
             response.VerifyResponseStatusCode(HttpStatusCode.OK, "An error occurred while get project");
             return response.EnsureSuccessStatusCode();
         }
-        
     }
 }

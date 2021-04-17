@@ -1,4 +1,4 @@
-namespace Homework_REST.ValidationConstants
+namespace Homework_REST.Constants.ValidationConstants
 {
     public class Constants
     {

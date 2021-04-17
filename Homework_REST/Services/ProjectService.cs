@@ -28,19 +28,7 @@ namespace Homework_REST.Services
             return _clientExtended.ExecuteAsync(request);
         }
 
-        public Task<HttpResponseMessage> DeleteProject(string projectId)
-        {
-            var request = HttpRequestBuilder.Build($"index.php?/api/v2/delete_project/{projectId}", HttpMethod.Post);
-            return _clientExtended.ExecuteAsync(request);
-        }
-
         public Task<HttpResponseMessage> GetProject(int projectId)
-        {
-            var request = HttpRequestBuilder.Build($"index.php?/api/v2/get_project/{projectId}", HttpMethod.Get);
-            return _clientExtended.ExecuteAsync(request);
-        }
-
-        public Task<HttpResponseMessage> GetProject(string projectId)
         {
             var request = HttpRequestBuilder.Build($"index.php?/api/v2/get_project/{projectId}", HttpMethod.Get);
             return _clientExtended.ExecuteAsync(request);
@@ -60,18 +48,18 @@ namespace Homework_REST.Services
             return _clientExtended.ExecuteAsync(request);
         }
 
-        public Task<HttpResponseMessage> UpdateSuite(string suiteId, RequestSuiteModel requestSuiteModel)
-        {
-            var request = HttpRequestBuilder.Build($"index.php?/api/v2/update_suite/{suiteId}", HttpMethod.Post,
-                requestSuiteModel);
-            return _clientExtended.ExecuteAsync(request);
-        }
-
-        public static int GetProjectId(HttpResponseMessage responseMessage)
+        public int GetProjectId(HttpResponseMessage responseMessage)
         {
             var projectId = JsonConvert.DeserializeObject<ResponseProjectModel>
                 (responseMessage.Content.ReadAsStringAsync().Result).Id;
             return projectId;
+        }
+
+        public int GetSuiteId(HttpResponseMessage responseMessage)
+        {
+            var suiteId = JsonConvert.DeserializeObject<ResponseSuiteModel>
+                (responseMessage.Content.ReadAsStringAsync().Result).Id;
+            return suiteId;
         }
     }
 }
