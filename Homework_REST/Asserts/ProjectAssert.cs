@@ -14,6 +14,8 @@ namespace Homework_REST.Asserts
             responseProjectModel.Id.Should().NotBe(null);
             responseProjectModel.ShowAnnouncement.Should().Be(requestProjectModel.ShowAnnouncement);
             responseProjectModel.Url.Should().Contain(Startup.AppSettings.Services.TestRailApp.AppUrl);
+            responseProjectModel.CompletedOn.Should().Be(null);
+            responseProjectModel.SuiteMode.Should().Be(3);
         }
     }
 }
