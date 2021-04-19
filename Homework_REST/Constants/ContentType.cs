@@ -2,6 +2,6 @@
 {
     public class ContentType
     {
-        public static readonly string MediaType = "application/json";
+        public const string MediaType = "application/json";
     }
 }

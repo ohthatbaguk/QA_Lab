@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using Bogus;
 using Homework_REST.Constants.Message;
 using Homework_REST.Factories;
-using Homework_REST.Models.ProjectModel;
 using Homework_REST.Utils;
-using Newtonsoft.Json;
+
 
 namespace Homework_REST.Mock
 {
@@ -15,7 +13,7 @@ namespace Homework_REST.Mock
             var moreThanMaxLength = ProjectFactory.GetProjectModel();
             moreThanMaxLength.Name = RandomUtils.GenerateString(
                 Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1);
-            
+
             var serializedProject = NewtonsoftJsonSerializer.Serialize(moreThanMaxLength);
             const string typeOfError = ErrorMessage.MoreThanMaxValue;
 
@@ -31,7 +29,7 @@ namespace Homework_REST.Mock
                 {
                     serializedProject,
                     typeOfError
-                }, 
+                },
                 new object[]
                 {
                     serializedNullNameProject,
@@ -44,14 +42,14 @@ namespace Homework_REST.Mock
         {
             const int incorrectId = 3;
             const string missingId = null;
-            
+
             return new List<object[]>
             {
                 new object[]
                 {
                     incorrectId
                 },
-                
+
                 new object[]
                 {
                     missingId

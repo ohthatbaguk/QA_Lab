@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Homework_REST.Models;
 using Homework_REST.Models.Message;
 
 namespace Homework_REST.Asserts
