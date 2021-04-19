@@ -1,61 +1,61 @@
 using System.Collections.Generic;
-using Bogus;
-using Homework_REST.Models.SuiteModel;
+using Homework_REST.Constants.Message;
+using Homework_REST.Factories;
 using Homework_REST.Utils;
 
 namespace Homework_REST.Mock
 {
     public class SuiteMocks
     {
-        public static IEnumerable<object[]> SuiteMissingValues()
+        public static IEnumerable<object[]> IncorrectValuesForUpdateSuite()
         {
-            var missingRequiredName = new RequestSuiteModel
-            {
-                Description = new Faker().Lorem.Sentence(3)
-            };
+            var moreThanMaxLength = SuiteFactory.GetSuiteModel();
+            moreThanMaxLength.Name = RandomUtils.GenerateString(
+                Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1);
+            
+            var serializedSuite = NewtonsoftJsonSerializer.Serialize(moreThanMaxLength);
+            const string typeOfError = ErrorMessage.MoreThanMaxValue;
+            
             
             return new List<object[]>
             {
                 new object[]
                 {
-                    missingRequiredName
-                },
-            };
-        } 
-        
-        public static IEnumerable<object[]> MoreThanMaxLengthValues()
-        {
-            var missingRequiredName = new RequestSuiteModel
-            {
-                Name = RandomUtils.GenerateString(
-                    Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1),
-                Description = new Faker().Lorem.Sentence(3)
-            };
-            
-            return new List<object[]>
-            {
-                new object[]
-                {
-                    missingRequiredName
+                    serializedSuite,
+                    typeOfError
                 }
+            
             };
         }
         
-        public static IEnumerable<object[]> IncorrectSuiteId()
+        public static IEnumerable<object[]> IncorrectValuesForAddSuite()
         {
-            const int incorrectId = 000;
-            const string missingId = null;
+            var moreThanMaxLength = SuiteFactory.GetSuiteModel();
+            moreThanMaxLength.Name = RandomUtils.GenerateString(
+                Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1);
+            
+            var serializedSuite = NewtonsoftJsonSerializer.Serialize(moreThanMaxLength);
+            const string typeOfError = ErrorMessage.MoreThanMaxValue;
+
+            var nullNameSuite = SuiteFactory.GetSuiteModel();
+            nullNameSuite.Name = null;
+
+            var serializedNullNameSuite = NewtonsoftJsonSerializer.Serialize(nullNameSuite);
+            const string typeError = ErrorMessage.RequiredField;
+            
             
             return new List<object[]>
             {
                 new object[]
                 {
-                    incorrectId
+                    serializedSuite,
+                    typeOfError
                 },
-                
+            
                 new object[]
                 {
-                    missingId
+                    serializedNullNameSuite,
+                    typeError
                 }
             };
         }

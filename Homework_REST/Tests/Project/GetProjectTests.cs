@@ -1,15 +1,20 @@
 using System.Net;
 using System.Threading.Tasks;
+using Allure.Xunit.Attributes;
 using FluentAssertions;
 using Homework_REST.Asserts;
 using Homework_REST.Base;
 using Homework_REST.Extensions;
 using Homework_REST.Factories;
 using Homework_REST.Mock;
+using Homework_REST.Models.Message;
+using Homework_REST.Models.ProjectModel;
+using Homework_REST.Utils;
 using Xunit;
 using Xunit.Abstractions;
+using ErrorMessage = Homework_REST.Constants.Message.ErrorMessage;
 
-namespace Homework_REST.Tests
+namespace Homework_REST.Tests.Project
 {
     public class GetProjectTests : BaseTest
     {
@@ -17,11 +22,11 @@ namespace Homework_REST.Tests
         {
         }
 
-        [Fact(DisplayName = "GET index.php?/api/v2/get_project/{projectId} when unauthorized returns 401")]
+        [AllureXunit(DisplayName = "GET index.php?/api/v2/get_project/{projectId} when unauthorized returns 401")]
         public async Task GetProject_WhenUnauthorized_ShouldReturnUnauthorized()
         {
             //Arrange
-            await SetAuthorization();
+            SetAuthorization();
             ClientExtended.ClearAuthorization();
 
             const int projectId = 123;
@@ -31,39 +36,47 @@ namespace Homework_REST.Tests
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+            
+            var responseMessage = NewtonsoftJsonSerializer.Deserialize<Error>(response);
+            ErrorAssert.ValidateErrorMessage(responseMessage, ErrorMessage.FailedAuthentication);
         }
 
-        [Fact(DisplayName = "GET index.php?/api/v2/get_project/{projectId} returns 200")]
+        [AllureXunit(DisplayName = "GET index.php?/api/v2/get_project/{projectId} returns 200")]
         public async Task GetProject_ShouldReturnOK()
         {
             //Arrange
-            await SetAuthorization();
+            SetAuthorization();
 
             var projectModel = ProjectFactory.GetProjectModel();
             var project = await ProjectService.AddProject(projectModel);
-            var projectId = ProjectService.GetProjectId(project);
+            var projectId = ProjectSteps.GetProjectId(project);
 
             //Act
             var response = await ProjectSteps.GetProject(projectId);
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            ProjectAssert.ValidateProjectResult(projectModel, response);
+            
+            var responseProject = NewtonsoftJsonSerializer.Deserialize<ResponseProjectModel>(response);
+            ProjectAssert.ValidateProjectResult(projectModel, responseProject);
         }
 
-        [Theory(DisplayName =
+        [AllureXunitTheory(DisplayName =
             "GET index.php?/api/v2/get_project/{projectId} when projectId has incorrect value value returns 400")]
-        [MemberData(nameof(ProjectMocks.IncorrectProjectId), MemberType = typeof(ProjectMocks))]
+        [MemberData(nameof(ProjectMocks.IncorrectId), MemberType = typeof(ProjectMocks))]
         public async Task GetProject_WhenProjectIdMissingValue_ShouldReturnBadRequest(int id)
         {
             //Arrange
-            await SetAuthorization();
+            SetAuthorization();
 
             //Act
             var response = await ProjectService.GetProject(id);
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            
+            var responseMessage = NewtonsoftJsonSerializer.Deserialize<Error>(response);
+            ErrorAssert.ValidateErrorMessage(responseMessage, ErrorMessage.InvalidProjectId);
         }
     }
 }

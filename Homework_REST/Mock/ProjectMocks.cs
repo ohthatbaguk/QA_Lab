@@ -1,51 +1,48 @@
 using System.Collections.Generic;
 using Bogus;
+using Homework_REST.Constants.Message;
+using Homework_REST.Factories;
 using Homework_REST.Models.ProjectModel;
 using Homework_REST.Utils;
+using Newtonsoft.Json;
 
 namespace Homework_REST.Mock
 {
     public class ProjectMocks
     {
-        public static IEnumerable<object[]> ProjectMissingValues()
+        public static IEnumerable<object[]> IncorrectValues()
         {
-            var missingRequiredName = new RequestProjectModel
-            {
-                Announcement = new Faker().Lorem.Sentence(3),
-                ShowAnnouncement = true
-            };
+            var moreThanMaxLength = ProjectFactory.GetProjectModel();
+            moreThanMaxLength.Name = RandomUtils.GenerateString(
+                Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1);
             
+            var serializedProject = NewtonsoftJsonSerializer.Serialize(moreThanMaxLength);
+            const string typeOfError = ErrorMessage.MoreThanMaxValue;
+
+            var missingValue = ProjectFactory.GetProjectModel();
+            missingValue.Name = null;
+
+            var serializedNullNameProject = NewtonsoftJsonSerializer.Serialize(missingValue);
+            const string typeError = ErrorMessage.RequiredField;
+
             return new List<object[]>
             {
                 new object[]
                 {
-                    missingRequiredName
-                }
-            };
-        }
-        
-        public static IEnumerable<object[]> ProjectIncorrectValues()
-        {
-            var missingRequiredName = new RequestProjectModel
-            {
-                Name = RandomUtils.GenerateString(
-                    Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1),
-                Announcement = new Faker().Lorem.Sentence(3),
-                ShowAnnouncement = true
-            };
-            
-            return new List<object[]>
-            {
+                    serializedProject,
+                    typeOfError
+                }, 
                 new object[]
                 {
-                    missingRequiredName
+                    serializedNullNameProject,
+                    typeError
                 }
             };
         }
-        
-        public static IEnumerable<object[]> IncorrectProjectId()
+
+        public static IEnumerable<object[]> IncorrectId()
         {
-            const int incorrectId = 000;
+            const int incorrectId = 3;
             const string missingId = null;
             
             return new List<object[]>

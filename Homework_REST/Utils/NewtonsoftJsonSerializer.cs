@@ -13,6 +13,11 @@ namespace Homework_REST.Utils
             return JsonConvert.DeserializeObject<T>(content);
         }
 
+        public static T DefaultDeserialize<T>(string str)
+        {
+            return JsonConvert.DeserializeObject<T>(str);
+        }
+
         public static string Serialize(object obj) =>
             JsonConvert.SerializeObject(obj, Formatting.Indented,
                 new JsonSerializerSettings

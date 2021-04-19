@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Text;
+using Homework_REST.Constants;
 using Homework_REST.Utils;
 
 namespace Homework_REST.Services
@@ -14,7 +15,7 @@ namespace Homework_REST.Services
                 RequestUri = new Uri(uri, UriKind.Relative),
                 Method = method,
                 Content = new StringContent(NewtonsoftJsonSerializer.Serialize(payload),
-                    Encoding.UTF8, "application/json")
+                    Encoding.UTF8, ContentType.MediaType)
             };
             return request;
         }
