@@ -17,7 +17,6 @@ namespace Homework_REST.Asserts
             responseSuiteModel.IsMaster.Should().Be(false);
             responseSuiteModel.IsBaseline.Should().Be(false);
             responseSuiteModel.IsCompleted.Should().Be(false);
-
         }
     }
 }

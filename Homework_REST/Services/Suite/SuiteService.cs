@@ -13,7 +13,7 @@ namespace Homework_REST.Services.Suite
         {
             _clientExtended = clientExtended;
         }
-        
+
         public Task<HttpResponseMessage> AddSuite(int projectId, RequestSuiteModel requestSuiteModel)
         {
             var request = HttpRequestBuilder.Build($"index.php?/api/v2/add_suite/{projectId}", HttpMethod.Post,
@@ -21,7 +21,21 @@ namespace Homework_REST.Services.Suite
             return _clientExtended.ExecuteAsync(request);
         }
 
+        public Task<HttpResponseMessage> AddSuite(string projectId, RequestSuiteModel requestSuiteModel)
+        {
+            var request = HttpRequestBuilder.Build($"index.php?/api/v2/add_suite/{projectId}", HttpMethod.Post,
+                requestSuiteModel);
+            return _clientExtended.ExecuteAsync(request);
+        }
+
         public Task<HttpResponseMessage> UpdateSuite(int suiteId, RequestSuiteModel requestSuiteModel)
+        {
+            var request = HttpRequestBuilder.Build($"index.php?/api/v2/update_suite/{suiteId}", HttpMethod.Post,
+                requestSuiteModel);
+            return _clientExtended.ExecuteAsync(request);
+        }
+
+        public Task<HttpResponseMessage> UpdateSuite(string suiteId, RequestSuiteModel requestSuiteModel)
         {
             var request = HttpRequestBuilder.Build($"index.php?/api/v2/update_suite/{suiteId}", HttpMethod.Post,
                 requestSuiteModel);

@@ -7,6 +7,7 @@ using Homework_REST.Base;
 using Homework_REST.Extensions;
 using Homework_REST.Factories;
 using Homework_REST.Mock;
+using Homework_REST.Mock.Project;
 using Homework_REST.Models.Message;
 using Homework_REST.Models.ProjectModel;
 using Homework_REST.Utils;
@@ -27,7 +28,7 @@ namespace Homework_REST.Tests.Project
         {
             //Arrange
             SetAuthorization();
-            var projectModel = ProjectFactory.GetProjectModel();
+            var projectModel = ProjectFactory.GetProjectModel().Generate();
 
             //Act
             var response = await ProjectService.AddProject(projectModel);
@@ -39,14 +40,14 @@ namespace Homework_REST.Tests.Project
             ProjectAssert.ValidateProjectResult(projectModel, responseProject);
         }
 
-       [AllureXunitTheory(DisplayName =
+        [AllureXunitTheory(DisplayName =
             "POST index.php?/api/v2/add_project when required field has incorrect value returns 400")]
-       [MemberData(nameof(ProjectMocks.IncorrectValues), MemberType = typeof(ProjectMocks))]
+        [MemberData(nameof(ProjectMocks.IncorrectValues), MemberType = typeof(ProjectMocks))]
         public async Task AddProject_WhenRequiredFieldHasIncorrectData_ShouldReturnBadRequest(
             string serializedProject, string typeOfError)
         {
             //Arrange
-           SetAuthorization();
+            SetAuthorization();
 
             //Act
             var projectModel = NewtonsoftJsonSerializer.DefaultDeserialize<RequestProjectModel>(serializedProject);
@@ -54,7 +55,7 @@ namespace Homework_REST.Tests.Project
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-            
+
             var errorResponse = NewtonsoftJsonSerializer.Deserialize<Error>(response);
             ErrorAssert.ValidateErrorMessage(errorResponse, typeOfError);
         }
@@ -65,7 +66,7 @@ namespace Homework_REST.Tests.Project
             //Arrange
             ClientExtended.ClearAuthorization();
 
-            var projectModel = ProjectFactory.GetProjectModel();
+            var projectModel = ProjectFactory.GetProjectModel().Generate();
 
             //Act
             var response = await ProjectService.AddProject(projectModel);

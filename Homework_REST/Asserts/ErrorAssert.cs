@@ -7,7 +7,7 @@ namespace Homework_REST.Asserts
     {
         public static void ValidateErrorMessage(Error error, string typeError)
         {
-            error.Message.Should().Be(typeError);
+            error.Message.Should().Contain(typeError);
         }
     }
 }

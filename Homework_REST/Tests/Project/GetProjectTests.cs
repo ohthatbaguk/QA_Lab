@@ -7,6 +7,7 @@ using Homework_REST.Base;
 using Homework_REST.Extensions;
 using Homework_REST.Factories;
 using Homework_REST.Mock;
+using Homework_REST.Mock.Project;
 using Homework_REST.Models.Message;
 using Homework_REST.Models.ProjectModel;
 using Homework_REST.Utils;
@@ -26,7 +27,6 @@ namespace Homework_REST.Tests.Project
         public async Task GetProject_WhenUnauthorized_ShouldReturnUnauthorized()
         {
             //Arrange
-            SetAuthorization();
             ClientExtended.ClearAuthorization();
 
             const int projectId = 123;
@@ -36,7 +36,7 @@ namespace Homework_REST.Tests.Project
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-            
+
             var responseMessage = NewtonsoftJsonSerializer.Deserialize<Error>(response);
             ErrorAssert.ValidateErrorMessage(responseMessage, ErrorMessage.FailedAuthentication);
         }
@@ -47,7 +47,7 @@ namespace Homework_REST.Tests.Project
             //Arrange
             SetAuthorization();
 
-            var projectModel = ProjectFactory.GetProjectModel();
+            var projectModel = ProjectFactory.GetProjectModel().Generate();
             var project = await ProjectService.AddProject(projectModel);
             var projectId = ProjectSteps.GetProjectId(project);
 
@@ -56,14 +56,14 @@ namespace Homework_REST.Tests.Project
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            
+
             var responseProject = NewtonsoftJsonSerializer.Deserialize<ResponseProjectModel>(response);
             ProjectAssert.ValidateProjectResult(projectModel, responseProject);
         }
 
         [AllureXunitTheory(DisplayName =
             "GET index.php?/api/v2/get_project/{projectId} when projectId has incorrect value value returns 400")]
-        [MemberData(nameof(ProjectMocks.IncorrectId), MemberType = typeof(ProjectMocks))]
+        [MemberData(nameof(ProjectMocks.IncorrectIdForProject), MemberType = typeof(ProjectMocks))]
         public async Task GetProject_WhenProjectIdMissingValue_ShouldReturnBadRequest(int id)
         {
             //Arrange
@@ -74,9 +74,9 @@ namespace Homework_REST.Tests.Project
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-            
+
             var responseMessage = NewtonsoftJsonSerializer.Deserialize<Error>(response);
-            ErrorAssert.ValidateErrorMessage(responseMessage, ErrorMessage.InvalidProjectId);
+            ErrorAssert.ValidateErrorMessage(responseMessage, ErrorMessage.IncorrectProjectId);
         }
     }
 }
