@@ -6,11 +6,10 @@ using Homework_REST.Asserts;
 using Homework_REST.Base;
 using Homework_REST.Extensions;
 using Homework_REST.Factories;
-using Homework_REST.Mock;
 using Homework_REST.Mock.Project;
 using Homework_REST.Mock.Suite;
-using Homework_REST.Models.Message;
 using Homework_REST.Models.SuiteModel;
+using Homework_REST.Steps;
 using Homework_REST.Utils;
 using Xunit;
 using Xunit.Abstractions;
@@ -30,8 +29,8 @@ namespace Homework_REST.Tests.Suite
             //Arrange
             SetAuthorization();
 
-            var suiteModel = SuiteFactory.GetSuiteModel().Generate();
-            var projectModel = ProjectFactory.GetProjectModel().Generate();
+            var suiteModel = SuiteFactory.GetSuiteModel();
+            var projectModel = ProjectFactory.GetProjectModel();
 
             var project = await ProjectService.AddProject(projectModel);
             var projectId = ProjectSteps.GetProjectId(project);
@@ -42,7 +41,7 @@ namespace Homework_REST.Tests.Suite
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var responseSuite = NewtonsoftJsonSerializer.Deserialize<ResponseSuiteModel>(response);
+            var responseSuite = response.GetResponseSuiteModel();
             SuiteAssert.ValidateSuiteResult(suiteModel, responseSuite);
         }
 
@@ -55,7 +54,7 @@ namespace Homework_REST.Tests.Suite
             //Arrange
             SetAuthorization();
 
-            var projectModel = ProjectFactory.GetProjectModel().Generate();
+            var projectModel = ProjectFactory.GetProjectModel();
             var project = await ProjectService.AddProject(projectModel);
             var projectId = ProjectSteps.GetProjectId(project);
             var suiteModel = NewtonsoftJsonSerializer.DefaultDeserialize<RequestSuiteModel>(serializedProject);
@@ -66,7 +65,7 @@ namespace Homework_REST.Tests.Suite
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-            var responseMessage = NewtonsoftJsonSerializer.Deserialize<Error>(response);
+            var responseMessage = response.GetErrors();
             ErrorAssert.ValidateErrorMessage(responseMessage, typeOfError);
         }
 
@@ -76,7 +75,7 @@ namespace Homework_REST.Tests.Suite
             //Arrange
             ClientExtended.ClearAuthorization();
 
-            var suiteModel = SuiteFactory.GetSuiteModel().Generate();
+            var suiteModel = SuiteFactory.GetSuiteModel();
             const int projectId = 123;
 
             //Act
@@ -85,7 +84,7 @@ namespace Homework_REST.Tests.Suite
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 
-            var responseMessage = NewtonsoftJsonSerializer.Deserialize<Error>(response);
+            var responseMessage = response.GetErrors();
             ErrorAssert.ValidateErrorMessage(responseMessage, ErrorMessage.FailedAuthentication);
         }
 
@@ -96,8 +95,8 @@ namespace Homework_REST.Tests.Suite
             //Arrange
             SetAuthorization();
 
-            var suiteModel = SuiteFactory.GetSuiteModel().Generate();
-            var projectModel = ProjectFactory.GetProjectModel().Generate();
+            var suiteModel = SuiteFactory.GetSuiteModel();
+            var projectModel = ProjectFactory.GetProjectModel();
 
             var project = await ProjectService.AddProject(projectModel);
             var projectId = ProjectSteps.GetProjectId(project);
@@ -109,7 +108,7 @@ namespace Homework_REST.Tests.Suite
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-            var responseMessage = NewtonsoftJsonSerializer.Deserialize<Error>(response);
+            var responseMessage = response.GetErrors();
             ErrorAssert.ValidateErrorMessage(responseMessage, ErrorMessage.IncorrectProjectId);
         }
 
@@ -121,7 +120,7 @@ namespace Homework_REST.Tests.Suite
         {
             //Arrange
             SetAuthorization();
-            var suiteModel = SuiteFactory.GetSuiteModel().Generate();
+            var suiteModel = SuiteFactory.GetSuiteModel();
 
             //Act
             var response = await SuiteService.AddSuite(projectId, suiteModel);
@@ -129,7 +128,7 @@ namespace Homework_REST.Tests.Suite
             //Arrange
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-            var responseMessage = NewtonsoftJsonSerializer.Deserialize<Error>(response);
+            var responseMessage = response.GetErrors();
             ErrorAssert.ValidateErrorMessage(responseMessage, typeOfError);
         }
     }

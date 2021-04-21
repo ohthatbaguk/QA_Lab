@@ -13,13 +13,12 @@ namespace Homework_REST.Steps.Suite
         {
             _suiteService = suiteService;
         }
-        
-        public int GetSuiteId(HttpResponseMessage responseMessage)
+
+        public static int GetSuiteId(HttpResponseMessage responseMessage)
         {
             var suiteId = JsonConvert.DeserializeObject<ResponseSuiteModel>
                 (responseMessage.Content.ReadAsStringAsync().Result).Id;
             return suiteId;
         }
-        
     }
 }

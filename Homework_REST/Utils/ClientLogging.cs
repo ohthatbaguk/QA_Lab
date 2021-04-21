@@ -14,7 +14,7 @@ namespace Homework_REST.Utils
             _logger = logger;
         }
 
-        public void LogRequest(HttpRequestMessage request)
+        public static void LogRequest(HttpRequestMessage request)
         {
             _logger.LogInformation($"{request.Method} request to : {request.RequestUri}");
 
@@ -27,7 +27,7 @@ namespace Homework_REST.Utils
             }
         }
 
-        public void LogResponse(HttpResponseMessage response)
+        public static void LogResponse(HttpResponseMessage response)
         {
             _logger.LogInformation($"Request finished with status code : {response.StatusCode}");
 

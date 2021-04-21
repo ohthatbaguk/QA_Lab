@@ -10,52 +10,47 @@ namespace Homework_REST.Mock.Suite
     {
         public static IEnumerable<object[]> IncorrectValuesForUpdateSuite()
         {
-            var moreThanMaxLength = SuiteFactory.GetSuiteModel().Generate();
+            var moreThanMaxLength = SuiteFactory.GetSuiteModel();
             moreThanMaxLength.Name = RandomUtils.GenerateString(
                 Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1);
 
             var serializedSuite = NewtonsoftJsonSerializer.Serialize(moreThanMaxLength);
-            const string typeOfError = ErrorMessage.MoreThanMaxValue;
-
 
             return new List<object[]>
             {
                 new object[]
                 {
                     serializedSuite,
-                    typeOfError
+                    ErrorMessage.MoreThanMaxValue
                 }
             };
         }
 
         public static IEnumerable<object[]> IncorrectValuesForAddSuite()
         {
-            var moreThanMaxLength = SuiteFactory.GetSuiteModel().Generate();
+            var moreThanMaxLength = SuiteFactory.GetSuiteModel();
             moreThanMaxLength.Name = RandomUtils.GenerateString(
                 Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1);
 
             var serializedSuite = NewtonsoftJsonSerializer.Serialize(moreThanMaxLength);
-            const string moreThanMax = ErrorMessage.MoreThanMaxValue;
 
-            var nullNameSuite = SuiteFactory.GetSuiteModel().Generate();
+            var nullNameSuite = SuiteFactory.GetSuiteModel();
             nullNameSuite.Name = null;
 
             var serializedNullNameSuite = NewtonsoftJsonSerializer.Serialize(nullNameSuite);
-            const string requiredField = ErrorMessage.RequiredFieldName;
-
 
             return new List<object[]>
             {
                 new object[]
                 {
                     serializedSuite,
-                    moreThanMax
+                    ErrorMessage.MoreThanMaxValue
                 },
 
                 new object[]
                 {
                     serializedNullNameSuite,
-                    requiredField
+                    ErrorMessage.RequiredFieldName
                 }
             };
         }
@@ -66,28 +61,24 @@ namespace Homework_REST.Mock.Suite
             const string missingId = null;
             const string specialSymbolId = "№*%!";
 
-            const string suiteIsNotValid = ErrorMessage.SuiteIdIsNotValid;
-            const string invalidCharacters = ErrorMessage.InvalidCharacters;
-            const string requiredFieldSuiteId = ErrorMessage.RequiredFieldSuiteId;
-
             return new List<object[]>
             {
                 new object[]
                 {
                     incorrectId,
-                    suiteIsNotValid
+                    ErrorMessage.SuiteIdIsNotValid
                 },
 
                 new object[]
                 {
                     missingId,
-                    requiredFieldSuiteId
+                    ErrorMessage.RequiredFieldSuiteId
                 },
 
                 new object[]
                 {
                     specialSymbolId,
-                    invalidCharacters
+                    ErrorMessage.InvalidCharacters
                 }
             };
         }

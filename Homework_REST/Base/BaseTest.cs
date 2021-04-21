@@ -18,7 +18,7 @@ namespace Homework_REST.Base
         protected readonly SuiteService SuiteService;
         protected readonly SuiteSteps SuiteSteps;
 
-        public BaseTest(ITestOutputHelper outputHelper)
+        protected BaseTest(ITestOutputHelper outputHelper)
         {
             var loggerFactory = LoggerFactory.Create(builder =>
             {

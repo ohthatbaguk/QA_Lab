@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Homework_REST.Utils
 {
-    public class NewtonsoftJsonSerializer
+    public static class NewtonsoftJsonSerializer
     {
         public static T Deserialize<T>(HttpResponseMessage response)
         {

@@ -10,30 +10,28 @@ namespace Homework_REST.Mock.Project
     {
         public static IEnumerable<object[]> IncorrectValues()
         {
-            var moreThanMaxLength = ProjectFactory.GetProjectModel().Generate();
+            var moreThanMaxLength = ProjectFactory.GetProjectModel();
             moreThanMaxLength.Name = RandomUtils.GenerateString(
                 Constants.ValidationConstants.Constants.RequestProjectModel.NotesMaxLength + 1);
 
             var serializedProject = NewtonsoftJsonSerializer.Serialize(moreThanMaxLength);
-            const string typeOfError = ErrorMessage.MoreThanMaxValue;
 
-            var missingValue = ProjectFactory.GetProjectModel().Generate();
+            var missingValue = ProjectFactory.GetProjectModel();
             missingValue.Name = null;
 
             var serializedNullNameProject = NewtonsoftJsonSerializer.Serialize(missingValue);
-            const string typeError = ErrorMessage.RequiredFieldName;
 
             return new List<object[]>
             {
                 new object[]
                 {
                     serializedProject,
-                    typeOfError
+                    ErrorMessage.MoreThanMaxValue
                 },
                 new object[]
                 {
                     serializedNullNameProject,
-                    typeError
+                    ErrorMessage.RequiredFieldName
                 }
             };
         }
@@ -44,28 +42,24 @@ namespace Homework_REST.Mock.Project
             const string missingId = null;
             const string specialSymbolId = "№*%!";
 
-            const string projectIsNotValid = ErrorMessage.ProjectIdIsNotValid;
-            const string invalidCharacters = ErrorMessage.InvalidCharacters;
-            const string requiredFieldProjectId = ErrorMessage.RequiredFieldProjectId;
-
             return new List<object[]>
             {
                 new object[]
                 {
                     incorrectId,
-                    projectIsNotValid
+                    ErrorMessage.ProjectIdIsNotValid
                 },
 
                 new object[]
                 {
                     missingId,
-                    requiredFieldProjectId
+                    ErrorMessage.RequiredFieldProjectId
                 },
 
                 new object[]
                 {
                     specialSymbolId,
-                    invalidCharacters
+                    ErrorMessage.InvalidCharacters
                 }
             };
         }

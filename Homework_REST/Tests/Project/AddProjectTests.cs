@@ -6,9 +6,7 @@ using Homework_REST.Asserts;
 using Homework_REST.Base;
 using Homework_REST.Extensions;
 using Homework_REST.Factories;
-using Homework_REST.Mock;
 using Homework_REST.Mock.Project;
-using Homework_REST.Models.Message;
 using Homework_REST.Models.ProjectModel;
 using Homework_REST.Utils;
 using Xunit;
@@ -28,7 +26,7 @@ namespace Homework_REST.Tests.Project
         {
             //Arrange
             SetAuthorization();
-            var projectModel = ProjectFactory.GetProjectModel().Generate();
+            var projectModel = ProjectFactory.GetProjectModel();
 
             //Act
             var response = await ProjectService.AddProject(projectModel);
@@ -36,7 +34,7 @@ namespace Homework_REST.Tests.Project
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var responseProject = NewtonsoftJsonSerializer.Deserialize<ResponseProjectModel>(response);
+            var responseProject = response.GetResponseProjectModel();
             ProjectAssert.ValidateProjectResult(projectModel, responseProject);
         }
 
@@ -56,7 +54,7 @@ namespace Homework_REST.Tests.Project
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-            var errorResponse = NewtonsoftJsonSerializer.Deserialize<Error>(response);
+            var errorResponse = response.GetErrors();
             ErrorAssert.ValidateErrorMessage(errorResponse, typeOfError);
         }
 
@@ -66,7 +64,7 @@ namespace Homework_REST.Tests.Project
             //Arrange
             ClientExtended.ClearAuthorization();
 
-            var projectModel = ProjectFactory.GetProjectModel().Generate();
+            var projectModel = ProjectFactory.GetProjectModel();
 
             //Act
             var response = await ProjectService.AddProject(projectModel);
@@ -74,7 +72,7 @@ namespace Homework_REST.Tests.Project
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 
-            var errorMessage = NewtonsoftJsonSerializer.Deserialize<Error>(response);
+            var errorMessage = response.GetErrors();
             ErrorAssert.ValidateErrorMessage(errorMessage, ErrorMessage.FailedAuthentication);
         }
     }

@@ -20,9 +20,9 @@ namespace Homework_REST.Clients
         public async Task<HttpResponseMessage> ExecuteAsync(HttpRequestMessage request,
             CancellationToken token = default)
         {
-            _clientLogging.LogRequest(request);
+            ClientLogging.LogRequest(request);
             var response = await SendAsync(request, token);
-            _clientLogging.LogResponse(response);
+            ClientLogging.LogResponse(response);
             return response;
         }
     }

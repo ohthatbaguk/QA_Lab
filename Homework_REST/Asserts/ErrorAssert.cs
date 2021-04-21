@@ -3,7 +3,7 @@ using Homework_REST.Models.Message;
 
 namespace Homework_REST.Asserts
 {
-    public class ErrorAssert
+    public static class ErrorAssert
     {
         public static void ValidateErrorMessage(Error error, string typeError)
         {

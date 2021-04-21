@@ -23,8 +23,8 @@ namespace Homework_REST.Steps
             response.VerifyResponseStatusCode(HttpStatusCode.OK, "An error occurred while get project");
             return response;
         }
-        
-        public int GetProjectId(HttpResponseMessage responseMessage)
+
+        public static int GetProjectId(HttpResponseMessage responseMessage)
         {
             var projectId = JsonConvert.DeserializeObject<ResponseProjectModel>
                 (responseMessage.Content.ReadAsStringAsync().Result).Id;
