@@ -11,8 +11,6 @@
 
         public const string RequiredFieldProjectId = "Field :project_id is a required field.";
 
-        public const string InvalidSuiteId = "Field :suite_id is not a valid test suite.";
-
         public const string RequiredFieldSuiteId = "Field :suite_id is a required field.";
 
         public const string SuiteIdIsNotValid = "Field :suite_id is not a valid ID.";

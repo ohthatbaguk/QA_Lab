@@ -26,6 +26,12 @@ namespace Homework_REST.Services.Project
             return _clientExtended.ExecuteAsync(request);
         }
 
+        public Task<HttpResponseMessage> DeleteProject(string projectId)
+        {
+            var request = HttpRequestBuilder.Build($"index.php?/api/v2/delete_project/{projectId}", HttpMethod.Post);
+            return _clientExtended.ExecuteAsync(request);
+        }
+
         public Task<HttpResponseMessage> GetProject(int projectId)
         {
             var request = HttpRequestBuilder.Build($"index.php?/api/v2/get_project/{projectId}", HttpMethod.Get);

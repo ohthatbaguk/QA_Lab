@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Allure.Xunit.Attributes;
 using FluentAssertions;
@@ -32,7 +33,6 @@ namespace Homework_REST.Tests.Project
 
             //Act
             var response = await ProjectService.DeleteProject(projectId);
-            var getProject = await ProjectSteps.GetProject(projectId);
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -41,7 +41,8 @@ namespace Homework_REST.Tests.Project
         [AllureXunitTheory(DisplayName =
             "POST index.php?/api/v2/delete_project/{projectId} when projectId has an incorrect format returns 400")]
         [MemberData(nameof(ProjectMocks.IncorrectIdForProject), MemberType = typeof(ProjectMocks))]
-        public async Task DeleteProject_WhenProjectIdHasIncorrectFormat_ShouldReturnBadRequest(int projectId)
+        public async Task DeleteProject_WhenProjectIdHasIncorrectFormat_ShouldReturnBadRequest(
+            string projectId, string typeOfError)
         {
             //Arrange
             SetAuthorization();
@@ -53,7 +54,7 @@ namespace Homework_REST.Tests.Project
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
             var responseMessage = response.GetErrors();
-            ErrorAssert.ValidateErrorMessage(responseMessage, ErrorMessage.IncorrectProjectId);
+            ErrorAssert.ValidateErrorMessage(responseMessage, typeOfError);
         }
 
         [AllureXunit(DisplayName = "POST index.php?/api/v2/delete_project/{projectId} when unauthorized returns 401")]
@@ -90,9 +91,12 @@ namespace Homework_REST.Tests.Project
 
             //Act
             var response = await ProjectService.DeleteProject(projectId);
-
+            await ProjectService.GetProject(projectId);
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var responseMessage = response.GetErrors();
+            ErrorAssert.ValidateErrorMessage(responseMessage, ErrorMessage.IncorrectProjectId);
         }
     }
 }
