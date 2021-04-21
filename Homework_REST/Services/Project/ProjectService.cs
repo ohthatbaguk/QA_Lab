@@ -22,8 +22,7 @@ namespace Homework_REST.Services.Project
 
         public Task<HttpResponseMessage> DeleteProject(int projectId)
         {
-            var request = HttpRequestBuilder.Build($"index.php?/api/v2/delete_project/{projectId}", HttpMethod.Post);
-            return _clientExtended.ExecuteAsync(request);
+            return DeleteProject(projectId.ToString());
         }
 
         public Task<HttpResponseMessage> DeleteProject(string projectId)
